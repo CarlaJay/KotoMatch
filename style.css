@@ -179,3 +179,331 @@ body {
 .deal-in {
   animation: dealIn 0.4s ease both;
 }
+
+/* =============================================
+   MENU SCREEN WRAPPER
+   Centers everything on the menu screen and
+   adds padding so content doesn't touch the edges.
+   min-height: 100vh makes it always full screen height.
+   ============================================= */
+.menu-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 20px;
+  animation: fadeIn 0.5s ease; /* screen fades in when shown */
+}
+
+/* =============================================
+   BYLINE
+   The small "✦ made by Carla J.G ✦" credit line.
+   Uses teal color, uppercase, and letter spacing
+   to make it feel elegant and small.
+   ============================================= */
+.byline {
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent2); /* teal */
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* =============================================
+   GAME LOGO
+   The large "KotoMatch" title.
+   Uses Playfair Display for an elegant serif look.
+   The <span> inside it will be styled pink below.
+   ============================================= */
+.game-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 8vw, 4.2rem); /* responsive sizing */
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text); /* white */
+  text-align: center;
+}
+
+/* This targets the <span> inside .game-logo
+   which wraps the word "Match" — makes it pink */
+.game-logo span {
+  color: var(--accent); /* pink */
+}
+
+/* =============================================
+   LOGO TAGLINE
+   The small text below the logo:
+   "Match the word. Learn the language."
+   ============================================= */
+.logo-sub {
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* =============================================
+   DECORATIVE DIVIDER
+   The ◆ · ◆ · ◆ line between branding and cards.
+   Uses flexbox to add lines on both sides.
+   ============================================= */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  margin: 16px 0;
+  width: 100%;
+  max-width: 520px;
+}
+
+/* These add the horizontal lines on each side of the divider text */
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* =============================================
+   MENU CARD
+   The rounded panels that group related settings.
+   Used for both the Theme Selector and Settings Panel.
+   ============================================= */
+.menu-card {
+  background: var(--surface);   /* ocean blue background */
+  border: 1px solid var(--border); /* translucent pink border */
+  border-radius: 18px;
+  padding: 20px 22px;
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 12px;
+}
+
+/* Section heading inside each menu card
+   e.g. "🎨 Vocabulary Theme" and "⚙️ Settings" */
+.menu-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent); /* pink */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* =============================================
+   THEME GRID
+   The 5 theme buttons in a grid layout.
+   grid-template-columns: repeat(5, 1fr) means
+   5 equal columns side by side.
+   ============================================= */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+/* Individual theme button */
+.theme-btn {
+  background: var(--surface2); /* deep navy */
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 6px;
+  text-align: center;
+  cursor: pointer; /* shows hand cursor on hover */
+  transition: all 0.2s; /* smooth hover effect */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The emoji icon inside each theme button */
+.theme-btn .ti {
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* The label text inside each theme button */
+.theme-btn .tn {
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+
+/* Hover effect — button lifts slightly */
+.theme-btn:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Active/selected theme button — pink border and glow */
+.theme-btn.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
+}
+
+/* Active theme label turns pink */
+.theme-btn.active .tn {
+  color: var(--accent);
+}
+
+/* =============================================
+   SETTINGS ROWS
+   Each row has a label on the left and
+   pill buttons on the right.
+   flex-wrap: wrap allows it to stack on
+   small screens if needed.
+   ============================================= */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 11px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* The label on the left of each setting row
+   e.g. "Difficulty", "Players", "Timer" */
+.setting-row label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  flex: 1;
+  min-width: 80px;
+}
+
+/* =============================================
+   PILL BUTTONS
+   The toggle buttons for each setting option.
+   They look like rounded capsules.
+   ============================================= */
+.pill-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.pill {
+  padding: 5px 13px;
+  border-radius: 50px; /* makes it pill-shaped */
+  font-size: 0.75rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Hover effect on pill buttons */
+.pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Active/selected pill — filled pink */
+.pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg); /* navy text on pink background */
+}
+
+/* =============================================
+   COUNTDOWN INPUT WRAP
+   The container for the custom time input.
+   Hidden by default — only shown when
+   Countdown timer mode is selected.
+   JS adds class "show" to display it.
+   ============================================= */
+.countdown-wrap {
+  display: none; /* hidden by default */
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* JS adds this class to show the countdown input */
+.countdown-wrap.show {
+  display: flex;
+}
+
+/* Label text "Set your time:" */
+.cd-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* The text input where player types their time */
+.time-input {
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  width: 110px;
+  outline: none; /* removes default browser outline */
+  transition: border-color 0.2s;
+  text-align: center;
+}
+
+/* Pink border and glow when input is focused/clicked */
+.time-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--glow);
+}
+
+/* Placeholder text styling */
+.time-input::placeholder {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* Small hint text "seconds or mm:ss" */
+.time-hint {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+/* =============================================
+   START GAME BUTTON
+   The big pink button at the bottom of the menu.
+   Full width, pill-shaped, Playfair Display font.
+   ============================================= */
+.start-btn {
+  width: 100%;
+  max-width: 520px;
+  padding: 15px;
+  background: var(--accent);    /* pink background */
+  color: var(--bg);             /* navy text */
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 50px;          /* pill shape */
+  cursor: pointer;
+  margin-top: 4px;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+/* Hover effect — turns teal and slightly grows */
+.start-btn:hover {
+  background: var(--accent2);   /* teal on hover */
+  color: var(--text);
+  transform: scale(1.02);
+  box-shadow: 0 8px 28px var(--glow);
+}
