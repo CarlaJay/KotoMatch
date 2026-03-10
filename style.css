@@ -574,3 +574,577 @@ body {
 .name-warn.show {
   display: block;
 }
+
+/* =============================================
+   GAME SCREEN WRAPPER
+   Contains all game elements with padding
+   and centers everything on the page.
+   ============================================= */
+.game-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 18px 14px 40px;
+  animation: fadeIn 0.4s ease; /* fades in when game starts */
+}
+
+/* =============================================
+   TOP BAR
+   Holds the logo on the left and the
+   back button on the right.
+   space-between pushes them to opposite sides.
+   ============================================= */
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 960px;
+  margin-bottom: 14px;
+}
+
+/* Game logo in the top bar
+   Same style as menu but smaller */
+.gtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text);
+}
+
+/* "Match" part of the logo in the top bar */
+.gtitle span {
+  color: var(--accent); /* pink */
+}
+
+/* Back to menu button — transparent with pink border on hover */
+.back-btn {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--muted);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* Hover effect on back button */
+.back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* =============================================
+   2-PLAYER PANELS WRAPPER
+   Holds both player panels side by side.
+   Hidden by default — JS shows it for 2-player mode.
+   flex-wrap: wrap allows stacking on small screens.
+   ============================================= */
+.players-wrapper {
+  display: none; /* hidden by default */
+  gap: 12px;
+  width: 100%;
+  max-width: 960px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Individual player panel */
+.player-panel {
+  flex: 1;
+  min-width: 180px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 11px 16px;
+  transition: all 0.3s;
+}
+
+/* Active player panel — glows pink and pulses
+   JS adds this class to show whose turn it is */
+.player-panel.active-turn {
+  border-color: var(--accent);
+  animation: turnPulse 1.5s infinite; /* pulsing glow animation */
+}
+
+/* Player name label — small uppercase text */
+.p-name {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+/* Active player name turns pink */
+.player-panel.active-turn .p-name {
+  color: var(--accent);
+}
+
+/* Player score — large Playfair Display number */
+.p-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+/* Combo info line — e.g. "🔥 ×3 combo!" */
+.p-info {
+  font-size: 0.7rem;
+  color: var(--accent2); /* teal */
+  margin-top: 2px;
+  min-height: 16px; /* keeps layout stable when empty */
+}
+
+/* =============================================
+   STATS BAR
+   Six boxes in a row showing live game stats.
+   flex-wrap: wrap allows them to wrap on
+   smaller screens.
+   ============================================= */
+.stats-bar {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 960px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Individual stat box */
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 7px 14px;
+  text-align: center;
+  min-width: 70px;
+}
+
+/* Small label at top of each stat box
+   e.g. "SCORE", "MOVES", "TIME" */
+.stat-label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+/* The actual value shown in each stat box */
+.stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent); /* pink */
+  margin-top: 1px;
+}
+
+/* Timer value uses teal color instead of pink */
+#timer-value {
+  color: var(--accent2);
+}
+
+/* When timer is low (≤10s) it turns red and pulses
+   JS adds this class when time is running out */
+#timer-value.urgent {
+  color: var(--danger);
+  animation: pulse 0.5s infinite alternate;
+}
+
+/* =============================================
+   ACTION BUTTONS ROW
+   Hint and Restart buttons side by side.
+   ============================================= */
+.action-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Base style shared by both action buttons */
+.action-btn {
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1.5px solid;
+  background: transparent;
+}
+
+/* Hint button — teal border and text */
+.hint-btn {
+  border-color: var(--accent2);
+  color: var(--accent2);
+}
+
+/* Hint button hover — fills with teal */
+.hint-btn:hover:not(:disabled) {
+  background: var(--accent2);
+  color: var(--bg);
+}
+
+/* Disabled hint button — faded out, not clickable */
+.hint-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Cooling down hint button — muted color while on cooldown */
+.hint-btn.cooling {
+  border-color: var(--muted);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+/* Restart button — muted border and text */
+.restart-btn {
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+/* Restart button hover — turns pink */
+.restart-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* =============================================
+   GAME BOARD
+   Cards are placed here by JavaScript.
+   display: grid is set here but columns are
+   set dynamically by JS based on difficulty.
+   ============================================= */
+#board {
+  display: grid;
+  gap: 10px; /* space between cards */
+  margin-bottom: 16px;
+}
+
+/* =============================================
+   CARDS
+   Each card has a front and back face.
+   The 3D flip effect uses rotateY and preserve-3d.
+   ============================================= */
+
+/* Outer card container — sets the perspective
+   for the 3D flip effect */
+.card {
+  cursor: pointer;
+  perspective: 700px;
+  border-radius: var(--radius);
+}
+
+/* Inner card — this is what actually rotates
+   transform-style: preserve-3d enables 3D flipping */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius);
+}
+
+/* When card is flipped or matched — rotates to show front */
+.card.flipped .card-inner,
+.card.matched .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Both front and back share this base style
+   backface-visibility: hidden hides the back
+   when the front is showing and vice versa */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  gap: 3px;
+  padding: 6px;
+}
+
+/* Card back — what you see before flipping
+   Shows the ♦ symbol in pink */
+.card-back {
+  background: var(--card-back, var(--surface));
+  border: 1.5px solid var(--border);
+  color: var(--accent);
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect on unflipped cards — pink glow */
+.card:hover:not(.flipped):not(.matched) .card-back {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
+}
+
+/* English card front — pink tinted */
+.card-front.eng-card {
+  background: linear-gradient(
+    145deg,
+    rgba(253,181,206,0.1),
+    var(--surface2)
+  );
+  border: 1.5px solid var(--accent);
+  transform: rotateY(180deg); /* starts hidden — shown when flipped */
+}
+
+/* Japanese card front — teal tinted */
+.card-front.jp-card {
+  background: linear-gradient(
+    145deg,
+    rgba(59,151,151,0.12),
+    var(--surface2)
+  );
+  border: 1.5px solid var(--accent2);
+  transform: rotateY(180deg); /* starts hidden — shown when flipped */
+}
+
+/* Emoji on card front */
+.card-front .cemoji {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  line-height: 1;
+}
+
+/* Word text on card front */
+.card-front .cword {
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* English word — uppercase pink */
+.card-front.eng-card .cword {
+  font-size: clamp(0.62rem, 1.2vw, 0.8rem);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Japanese word — teal */
+.card-front.jp-card .cword {
+  font-size: clamp(0.78rem, 1.5vw, 1rem);
+  color: var(--accent2);
+}
+
+/* Romaji pronunciation — small muted text */
+.card-front .cromaji {
+  font-size: 0.55rem;
+  color: var(--muted);
+}
+
+/* Language label — "English" or "日本語" */
+.card-front .clang {
+  font-size: 0.48rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* Matched English card — pink glow stays on */
+.card.matched .card-front.eng-card {
+  box-shadow: 0 0 18px rgba(253,181,206,0.4);
+}
+
+/* Matched Japanese card — teal glow stays on */
+.card.matched .card-front.jp-card {
+  box-shadow: 0 0 18px rgba(59,151,151,0.4);
+}
+
+/* Preview state — shows card face up during
+   the 3 second preview before game starts */
+.card.preview .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* =============================================
+   LEADERBOARD
+   Shows top 5 round scores this session.
+   ============================================= */
+.leaderboard {
+  width: 100%;
+  max-width: 960px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 13px 18px;
+  margin-top: 12px;
+}
+
+/* Leaderboard heading */
+.leaderboard h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.76rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Individual leaderboard row */
+.lb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+/* Remove border from last row */
+.lb-row:last-child {
+  border-bottom: none;
+}
+
+/* Rank number e.g. #1 #2 */
+.lb-rank {
+  color: var(--accent2);
+  font-weight: 600;
+  width: 22px;
+}
+
+/* Score value in leaderboard */
+.lb-score {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+/* Moves and time in leaderboard */
+.lb-meta {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+/* Default empty message */
+.lb-empty {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* =============================================
+   VOCABULARY LOG
+   Shows matched word pairs as rows.
+   Each row fades in when a match is made.
+   ============================================= */
+.vocab-log {
+  width: 100%;
+  max-width: 960px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 13px 18px;
+  margin-top: 12px;
+}
+
+/* Vocabulary log heading */
+.vocab-log h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.76rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Column headers row — 4 columns:
+   emoji | English | Japanese | Pronunciation */
+.vocab-log-header {
+  display: grid;
+  grid-template-columns: 30px 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 5px 4px 8px;
+  border-bottom: 1.5px solid var(--border);
+  margin-bottom: 4px;
+}
+
+/* Each column header label */
+.vocab-log-header span {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
+
+/* English column header — pink */
+.h-en { color: var(--accent); }
+
+/* Japanese column header — teal */
+.h-jp { color: var(--accent2); }
+
+/* Pronunciation column header — light teal */
+.h-pr { color: var(--accent3); }
+
+/* Each matched word row — same 4-column grid */
+.vocab-row {
+  display: grid;
+  grid-template-columns: 30px 1fr 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 4px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+  opacity: 0; /* starts invisible */
+  transition: opacity 0.4s; /* fades in smoothly */
+}
+
+/* Last vocab row has no bottom border */
+.vocab-row:last-child {
+  border-bottom: none;
+}
+
+/* JS adds this class to fade in the row */
+.vocab-row.show {
+  opacity: 1;
+}
+
+/* Emoji cell */
+.ve {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* English word cell — pink */
+.ven {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Japanese word cell — teal */
+.vjp {
+  color: var(--accent2);
+  font-weight: 600;
+}
+
+/* Romaji pronunciation cell — light teal */
+.vro {
+  color: var(--accent3);
+  font-size: 0.75rem;
+}
+
+/* Default placeholder text before any matches */
+.vocab-ph {
+  color: var(--muted);
+  font-size: 0.78rem;
+  padding: 4px 0;
+}
