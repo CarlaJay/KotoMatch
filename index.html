@@ -26,7 +26,139 @@
        Contains theme selector, settings, and start button.
        ============================================= -->
   <div id="menu-screen" class="screen active">
-    <!-- Menu content will be added in the next step -->
+    <!-- =============================================
+         BRANDING SECTION
+         The byline, logo, and tagline at the top
+         of the menu screen.
+         ============================================= -->
+    <div class="menu-wrap">
+
+      <!-- Small credit line at the very top -->
+      <div class="byline">✦ made by Carla J.G ✦</div>
+
+      <!-- Main game logo — "Koto" is white, "Match" is pink
+           The <span> tag is what makes "Match" pink in CSS -->
+      <div class="game-logo">Koto<span>Match</span></div>
+
+      <!-- Tagline below the logo -->
+      <div class="logo-sub">Match the word. Learn the language.</div>
+
+      <!-- Decorative divider between branding and settings -->
+      <div class="divider">◆ &nbsp; ◆ &nbsp; ◆</div>
+
+      <!-- =============================================
+           VOCABULARY THEME SELECTOR
+           Five buttons — each one represents a theme.
+           Clicking one saves the choice to the
+           settings object in JavaScript.
+           ============================================= -->
+      <div class="menu-card">
+        <h3>🎨 Vocabulary Theme</h3>
+
+        <!-- Theme buttons grid — icons and labels -->
+        <!-- JavaScript will make these interactive later -->
+        <div class="theme-grid" id="theme-grid">
+
+          <!-- Each button has data-theme so JS knows which was clicked -->
+          <div class="theme-btn active" data-theme="nature">
+            <span class="ti">🌿</span>
+            <span class="tn">Nature</span>
+          </div>
+
+          <div class="theme-btn" data-theme="animals">
+            <span class="ti">🐶</span>
+            <span class="tn">Animals</span>
+          </div>
+
+          <div class="theme-btn" data-theme="food">
+            <span class="ti">🍎</span>
+            <span class="tn">Food</span>
+          </div>
+
+          <div class="theme-btn" data-theme="daily">
+            <span class="ti">🏠</span>
+            <span class="tn">Daily Life</span>
+          </div>
+
+          <div class="theme-btn" data-theme="body">
+            <span class="ti">🤲</span>
+            <span class="tn">Body & Self</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- =============================================
+           SETTINGS PANEL
+           Three rows of pill buttons:
+           Difficulty, Players, and Timer.
+           The countdown input appears only when
+           Countdown timer is selected.
+           ============================================= -->
+      <div class="menu-card">
+        <h3>⚙️ Settings</h3>
+
+        <!-- Difficulty row -->
+        <div class="setting-row">
+          <label>Difficulty</label>
+          <div class="pill-group" id="difficulty-group">
+            <!-- data-value tells JS what was selected -->
+            <button class="pill active" data-value="easy">Easy</button>
+            <button class="pill" data-value="medium">Medium</button>
+            <button class="pill" data-value="hard">Hard</button>
+          </div>
+        </div>
+
+        <!-- Players row -->
+        <div class="setting-row">
+          <label>Players</label>
+          <div class="pill-group" id="players-group">
+            <button class="pill active" data-value="1">1 Player</button>
+            <button class="pill" data-value="2">2 Players</button>
+          </div>
+        </div>
+
+        <!-- Timer row -->
+        <div class="setting-row">
+          <label>Timer</label>
+          <div class="pill-group" id="timer-group">
+            <button class="pill active" data-value="countup">Count Up</button>
+            <button class="pill" data-value="countdown">Countdown</button>
+          </div>
+        </div>
+
+        <!-- Custom countdown input
+             This is hidden by default.
+             It only appears when Countdown is selected.
+             JS will handle showing and hiding it. -->
+        <div class="countdown-wrap" id="countdown-wrap">
+          <label class="cd-label">Set your time:</label>
+          <!-- Player types their own time here e.g. 90 or 1:30 -->
+          <input
+            class="time-input"
+            id="countdown-input"
+            type="text"
+            placeholder="e.g. 90 or 1:30"
+            maxlength="5"
+            autocomplete="off"
+          />
+          <span class="time-hint">seconds or mm:ss</span>
+        </div>
+
+      </div>
+
+      <!-- =============================================
+           START GAME BUTTON
+           Clicking this either goes to the name screen
+           (2 players) or starts the game directly
+           (1 player). JS handles this logic.
+           ============================================= -->
+      <button class="start-btn" id="start-btn">▶ &nbsp; Start Game</button>
+
+      <!-- Bottom spacing so content doesn't sit flush at the bottom -->
+      <div style="height: 32px"></div>
+
+    </div><!-- end .menu-wrap -->
   </div>
 
   <!-- =============================================
