@@ -1,0 +1,181 @@
+/* =============================================
+   GOOGLE FONTS are already imported in the HTML.
+   This file handles ALL the visual styling.
+   ============================================= */
+
+/* =============================================
+   CSS VARIABLES
+   These are like named containers for our colors.
+   Instead of typing the hex code everywhere,
+   we just write var(--accent) etc.
+   If we ever want to change a color, we only
+   change it here — and it updates everywhere.
+   ============================================= */
+:root {
+  --bg:       #132440;  /* navy — main page background */
+  --surface:  #16476A;  /* ocean blue — cards, panels */
+  --surface2: #0e1d33;  /* deep navy — input backgrounds, card fronts */
+  --accent:   #FDB5CE;  /* pink — primary accent, buttons, active states */
+  --accent2:  #3B9797;  /* teal — secondary accent, timer, hints */
+  --accent3:  #a8dede;  /* light teal — tertiary highlights */
+  --text:     #f5eef2;  /* near white — main text color */
+  --muted:    #7aa0b8;  /* muted blue — secondary text, placeholders */
+  --danger:   #e07878;  /* soft red — errors and warnings */
+  --border:   rgba(253,181,206,0.2);  /* translucent pink — all borders */
+  --glow:     rgba(253,181,206,0.22); /* pink glow — box shadows */
+  --radius:   14px;     /* border radius used on cards and panels */
+}
+
+/* =============================================
+   RESET
+   Removes default browser spacing and sizing
+   quirks so everything behaves consistently.
+   ============================================= */
+* {
+  box-sizing: border-box; /* padding and border included in element size */
+  margin: 0;
+  padding: 0;
+}
+
+/* =============================================
+   BODY
+   Sets the base look of the entire page.
+   The background-image adds the three layered
+   radial gradient glows over the navy background.
+   ============================================= */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  min-height: 100vh; /* always at least full screen height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* Three layered glows on top of the navy background:
+     1. Pink glow from the top center
+     2. Faint pink glow from the bottom left
+     3. Teal glow from the right side */
+  background-image:
+    radial-gradient(ellipse 100% 60% at 50% 0%,   rgba(253,181,206,0.13) 0%, transparent 60%),
+    radial-gradient(ellipse 70%  50% at 0%   100%, rgba(253,181,206,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse 60%  40% at 100% 50%,  rgba(59,151,151,0.1)   0%, transparent 60%);
+}
+
+/* =============================================
+   SCREENS
+   All three screens exist in the HTML at once.
+   Only the one with class "active" is visible.
+   The others are hidden with display: none.
+   ============================================= */
+.screen {
+  display: none;        /* hidden by default */
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* This is the class JavaScript adds to show a screen */
+.screen.active {
+  display: flex;
+}
+
+/* =============================================
+   OVERLAYS
+   These are the popup screens (preview, win, game over).
+   They sit on top of everything using position: fixed.
+   Hidden by default — shown by adding class "show".
+   ============================================= */
+.overlay {
+  display: none;           /* hidden by default */
+  position: fixed;         /* stays on screen even when scrolling */
+  inset: 0;                /* covers the entire screen */
+  background: rgba(8,14,26,0.92); /* dark semi-transparent background */
+  backdrop-filter: blur(12px);    /* blurs what's behind the overlay */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 200;            /* sits on top of everything else */
+  text-align: center;
+  padding: 24px;
+  animation: fadeIn 0.35s ease; /* fades in when it appears */
+}
+
+/* JavaScript adds this class to show an overlay */
+.overlay.show {
+  display: flex;
+}
+
+/* =============================================
+   CONFETTI CANVAS
+   Sits on top of everything on win screen.
+   pointer-events: none means you can still
+   click buttons underneath it.
+   ============================================= */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* clicks pass through to elements below */
+  z-index: 199;
+  display: none;        /* hidden until win triggers confetti */
+}
+
+/* =============================================
+   ANIMATIONS
+   These are reusable keyframe animations used
+   throughout the game for various effects.
+   ============================================= */
+
+/* Simple fade in — used on screens and overlays */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Fade up — used on win overlay elements */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Pop/spring — used on win overlay trophy and badge */
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.4); }
+  to   { opacity: 1; transform: scale(1);   }
+}
+
+/* Pulse — used on urgent timer (flashes when low) */
+@keyframes pulse {
+  from { opacity: 1;   }
+  to   { opacity: 0.4; } 
+}
+
+/* Deal in — cards fly in when game starts */
+@keyframes dealIn {
+  from { opacity: 0; transform: scale(0.5) rotateY(-90deg); }
+  to   { opacity: 1; transform: scale(1)   rotateY(0);      }
+}
+
+/* Shake — mismatched cards shake horizontally */
+@keyframes shake {
+  0%,  100% { transform: translateX(0)    rotateY(180deg); }
+  25%       { transform: translateX(-6px) rotateY(180deg); }
+  75%       { transform: translateX(6px)  rotateY(180deg); }
+}
+
+/* Turn pulse — active player panel glows */
+@keyframes turnPulse {
+  0%,  100% { box-shadow: 0 0 18px rgba(253,181,206,0.22); }
+  50%       { box-shadow: 0 0 32px rgba(253,181,206,0.45); }
+}
+
+/* Used on mismatched cards */
+.shake .card-inner {
+  animation: shake 0.38s ease;
+}
+
+/* Used on cards when they deal into the board */
+.deal-in {
+  animation: dealIn 0.4s ease both;
+}
