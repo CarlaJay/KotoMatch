@@ -1,467 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KotoMatch</title>
+  <!-- This tells the browser what kind of document this is -->
+  <meta charset="UTF-8"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- This makes the page responsive on mobile screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<style>
+  <!-- This is the tab title shown in the browser -->
+  <title>KotoMatch</title>
 
-:root{
+  <!-- This imports our two Google Fonts: Playfair Display for headings, Jost for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
---pink:#FDB5CE;
---navy:#132440;
---ocean:#16476A;
---teal:#3B9797;
+  <!-- This connects our external CSS file where all the styling will live -->
+  <link rel="stylesheet" href="style.css"/>
 
---text:#f5eef2;
---muted:#7aa0b8;
---danger:#e07878;
-
---border:rgba(253,181,206,0.2);
---glow:rgba(253,181,206,0.22);
-
-}
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-}
-
-body{
-
-font-family:'Jost',sans-serif;
-color:var(--text);
-min-height:100vh;
-
-background:
-radial-gradient(circle at top,#FDB5CE33,transparent 40%),
-radial-gradient(circle at bottom left,#FDB5CE22,transparent 40%),
-radial-gradient(circle at right,#3B979722,transparent 40%),
-var(--navy);
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-}
-
-h1,h2,h3{
-font-family:'Playfair Display',serif;
-}
-
-button{
-cursor:pointer;
-border:none;
-font-family:'Jost';
-}
-
-.screen{
-display:none;
-width:95%;
-max-width:1100px;
-gap:24px;
-flex-direction:column;
-}
-
-.active{
-display:flex;
-}
-
-/* PANEL */
-
-.panel{
-
-background:var(--ocean);
-border:1px solid var(--border);
-border-radius:14px;
-padding:20px;
-
-}
-
-/* BRANDING */
-
-.byline{
-
-text-align:center;
-letter-spacing:3px;
-color:var(--teal);
-font-size:13px;
-
-}
-
-.logo{
-
-text-align:center;
-font-size:48px;
-font-weight:900;
-
-}
-
-.logo span{
-color:var(--pink);
-}
-
-.tagline{
-
-text-align:center;
-color:var(--muted);
-
-}
-
-/* THEME SELECTOR */
-
-.theme-grid{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-gap:12px;
-
-}
-
-.theme-btn{
-
-background:var(--ocean);
-border:1px solid var(--border);
-border-radius:14px;
-padding:14px;
-font-weight:500;
-color:var(--text);
-
-}
-
-.theme-btn.active{
-
-border:2px solid var(--pink);
-box-shadow:0 0 10px var(--glow);
-
-}
-
-/* TOGGLE BUTTONS */
-
-.toggle-group{
-
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-
-}
-
-.toggle{
-
-background:var(--ocean);
-border:1px solid var(--border);
-border-radius:999px;
-padding:8px 16px;
-color:var(--text);
-font-weight:500;
-
-}
-
-.toggle.active{
-
-border:2px solid var(--pink);
-box-shadow:0 0 10px var(--glow);
-
-}
-
-/* INPUT */
-
-input{
-
-background:var(--ocean);
-border:1px solid var(--border);
-border-radius:10px;
-padding:10px;
-color:var(--text);
-width:100%;
-
-}
-
-.error{
-
-border:1px solid var(--danger);
-
-}
-
-/* BUTTONS */
-
-.start-btn{
-
-background:var(--pink);
-color:#132440;
-padding:12px;
-border-radius:10px;
-font-weight:600;
-
-}
-
-/* NAME SCREEN */
-
-.name-grid{
-
-display:grid;
-gap:12px;
-
-}
-
-/* GAME SCREEN */
-
-.topbar{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
-.stats{
-
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-
-}
-
-.board{
-
-display:grid;
-gap:12px;
-
-}
-
-/* UTIL */
-
-.center{
-text-align:center;
-}
-
-</style>
 </head>
-
 <body>
 
-<!-- MENU SCREEN -->
-
-<div id="menuScreen" class="screen active">
-
-<div class="byline">✦ made by Carla J.G ✦</div>
-
-<div class="logo">Koto<span>Match</span></div>
-
-<div class="tagline">Match the word. Learn the language.</div>
-
-<div class="panel">
-
-<h3>Vocabulary Theme</h3>
-
-<div class="theme-grid">
-
-<button class="theme-btn active">🌿 Nature</button>
-<button class="theme-btn">🐶 Animals</button>
-<button class="theme-btn">🍎 Food</button>
-<button class="theme-btn">🏠 Daily Life</button>
-<button class="theme-btn">🤲 Body & Self</button>
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3>Difficulty</h3>
-
-<div class="toggle-group">
-
-<button class="toggle active">Easy</button>
-<button class="toggle">Medium</button>
-<button class="toggle">Hard</button>
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3>Players</h3>
-
-<div class="toggle-group" id="playerToggle">
-
-<button class="toggle active" data-players="1">1 Player</button>
-<button class="toggle" data-players="2">2 Players</button>
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h3>Timer Mode</h3>
-
-<div class="toggle-group" id="timerToggle">
-
-<button class="toggle active" data-timer="countup">Count Up</button>
-<button class="toggle" data-timer="countdown">Countdown</button>
-
-</div>
-
-<div id="countdownInput" style="margin-top:10px;display:none">
-
-<input type="text" placeholder="Enter time (90 or 1:30)">
-
-</div>
-
-</div>
-
-<button class="start-btn" id="startBtn">Start Game</button>
-
-</div>
-
-
-<!-- NAME SCREEN -->
-
-<div id="nameScreen" class="screen">
-
-<div class="logo">Koto<span>Match</span></div>
-
-<div class="panel">
-
-<h3 class="center">Enter Player Names</h3>
-
-<div class="name-grid">
-
-<input id="p1" placeholder="Player 1 name (max 16)">
-<input id="p2" placeholder="Player 2 name (max 16)">
-
-<button class="start-btn" id="continueBtn">Continue</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- GAME SCREEN -->
-
-<div id="gameScreen" class="screen">
-
-<div class="topbar">
-
-<div class="logo">Koto<span>Match</span></div>
-
-<button class="toggle" id="backMenu">Menu</button>
-
-</div>
-
-<div class="panel stats">
-
-<div>Score: 0</div>
-<div>Moves: 0</div>
-<div>Pairs: 0</div>
-<div>Time: 0</div>
-<div>Hints: 0</div>
-<div>Combo: ×1</div>
-
-</div>
-
-<div class="board" id="board"></div>
-
-</div>
-
-
-<script>
-
-const menuScreen=document.getElementById("menuScreen")
-const nameScreen=document.getElementById("nameScreen")
-const gameScreen=document.getElementById("gameScreen")
-
-const startBtn=document.getElementById("startBtn")
-
-let players=1
-
-document.querySelectorAll("#playerToggle .toggle").forEach(btn=>{
-
-btn.onclick=()=>{
-
-document.querySelectorAll("#playerToggle .toggle").forEach(b=>b.classList.remove("active"))
-btn.classList.add("active")
-
-players=btn.dataset.players
-
-}
-
-})
-
-document.getElementById("timerToggle").onclick=(e)=>{
-
-if(e.target.classList.contains("toggle")){
-
-document.querySelectorAll("#timerToggle .toggle").forEach(b=>b.classList.remove("active"))
-
-e.target.classList.add("active")
-
-if(e.target.dataset.timer==="countdown"){
-
-document.getElementById("countdownInput").style.display="block"
-
-}else{
-
-document.getElementById("countdownInput").style.display="none"
-
-}
-
-}
-
-}
-
-startBtn.onclick=()=>{
-
-menuScreen.classList.remove("active")
-
-if(players==2){
-
-nameScreen.classList.add("active")
-
-}else{
-
-gameScreen.classList.add("active")
-
-}
-
-}
-
-document.getElementById("continueBtn").onclick=()=>{
-
-const p1=document.getElementById("p1")
-const p2=document.getElementById("p2")
-
-if(!p1.value || !p2.value){
-
-p1.classList.add("error")
-p2.classList.add("error")
-
-return
-
-}
-
-nameScreen.classList.remove("active")
-gameScreen.classList.add("active")
-
-}
-
-document.getElementById("backMenu").onclick=()=>{
-
-gameScreen.classList.remove("active")
-menuScreen.classList.add("active")
-
-}
-
-</script>
+  <!-- =============================================
+       SCREEN 1 — MENU SCREEN
+       This is the first thing the player sees.
+       Contains theme selector, settings, and start button.
+       ============================================= -->
+  <div id="menu-screen" class="screen active">
+    <!-- Menu content will be added in the next step -->
+  </div>
+
+  <!-- =============================================
+       SCREEN 2 — NAME ENTRY SCREEN
+       Only shown when 2 Players is selected.
+       Asks both players to type their names.
+       ============================================= -->
+  <div id="name-screen" class="screen">
+    <!-- Name entry content will be added later -->
+  </div>
+
+  <!-- =============================================
+       SCREEN 3 — GAME SCREEN
+       The actual game board lives here.
+       Hidden until the player starts the game.
+       ============================================= -->
+  <div id="game-screen" class="screen">
+    <!-- Game content will be added later -->
+  </div>
+
+  <!-- =============================================
+       OVERLAYS
+       These are the popup screens (preview, win, game over).
+       They sit on top of everything using position: fixed.
+       ============================================= -->
+
+  <!-- Card preview overlay — shows before game starts -->
+  <div class="overlay" id="preview-overlay"></div>
+
+  <!-- Win overlay — shows when all pairs are matched -->
+  <div class="overlay" id="win-overlay"></div>
+
+  <!-- Game over overlay — shows when countdown hits zero -->
+  <div class="overlay" id="gameover-overlay"></div>
+
+  <!-- Confetti canvas — drawn on top of everything on win -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- =============================================
+       This connects our external JavaScript file.
+       It is placed at the BOTTOM of body on purpose —
+       so the HTML elements load first before JS runs.
+       ============================================= -->
+  <script src="script.js"></script>
 
 </body>
 </html>
