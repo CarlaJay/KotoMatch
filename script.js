@@ -254,3 +254,4 @@ function confirmNames() {
 // Every time it's clicked, confirmNames() runs.
 // =============================================
 document.getElementById('continue-btn').addEventListener('click', confirmNames);
+
