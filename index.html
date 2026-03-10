@@ -241,7 +241,178 @@
        Hidden until the player starts the game.
        ============================================= -->
   <div id="game-screen" class="screen">
-    <!-- Game content will be added later -->
+    <!-- =============================================
+         GAME SCREEN WRAPPER
+         Contains everything the player sees
+         during the game — top bar, stats,
+         board, leaderboard, and vocab log.
+         ============================================= -->
+    <div class="game-wrap">
+
+      <!-- =============================================
+           TOP BAR
+           Logo on the left, back button on the right.
+           Back button returns to the menu screen.
+           ============================================= -->
+      <div class="game-topbar">
+
+        <!-- Game logo — same style as menu screen -->
+        <div class="gtitle">Koto<span>Match</span></div>
+
+        <!-- Back to menu button -->
+        <!-- JS will attach the click event later -->
+        <button class="back-btn" id="back-btn">← Menu</button>
+
+      </div>
+
+      <!-- =============================================
+           2-PLAYER PANELS
+           Only visible in 2-player mode.
+           Each panel shows the player's name,
+           score, and current combo streak.
+           The active player's panel glows pink.
+           Hidden by default — JS shows it when needed.
+           ============================================= -->
+      <div class="players-wrapper" id="players-wrapper">
+
+        <!-- Player 1 panel -->
+        <div class="player-panel active-turn" id="p1-panel">
+          <!-- Name label — updated by JS with actual player name -->
+          <div class="p-name" id="p1-name-label">Player 1</div>
+          <!-- Score — updated live during the game -->
+          <div class="p-score" id="p1-score">0</div>
+          <!-- Combo info — shows "🔥 ×3 combo!" when active -->
+          <div class="p-info"  id="p1-info"></div>
+        </div>
+
+        <!-- Player 2 panel -->
+        <div class="player-panel" id="p2-panel">
+          <div class="p-name" id="p2-name-label">Player 2</div>
+          <div class="p-score" id="p2-score">0</div>
+          <div class="p-info"  id="p2-info"></div>
+        </div>
+
+      </div>
+
+      <!-- =============================================
+           STATS BAR
+           Six boxes always visible during the game.
+           Each box has a label and a live value
+           that JavaScript updates as the game runs.
+           ============================================= -->
+      <div class="stats-bar">
+
+        <!-- Current score -->
+        <div class="stat-box">
+          <div class="stat-label">Score</div>
+          <div class="stat-value" id="score-value">0</div>
+        </div>
+
+        <!-- Number of moves made -->
+        <div class="stat-box">
+          <div class="stat-label">Moves</div>
+          <div class="stat-value" id="moves-value">0</div>
+        </div>
+
+        <!-- Matched pairs out of total e.g. 3/8 -->
+        <div class="stat-box">
+          <div class="stat-label">Pairs</div>
+          <div class="stat-value" id="pairs-value">0</div>
+        </div>
+
+        <!-- Timer — counts up or down depending on mode -->
+        <div class="stat-box">
+          <div class="stat-label">Time</div>
+          <!-- timer-value gets special styling when urgent -->
+          <div class="stat-value" id="timer-value">0s</div>
+        </div>
+
+        <!-- Hints remaining this game -->
+        <div class="stat-box">
+          <div class="stat-label">Hints</div>
+          <div class="stat-value" id="hints-value">3</div>
+        </div>
+
+        <!-- Current combo multiplier e.g. ×3 -->
+        <div class="stat-box">
+          <div class="stat-label">Combo</div>
+          <div class="stat-value" id="combo-value">×1</div>
+        </div>
+
+      </div>
+
+      <!-- =============================================
+           ACTION BUTTONS ROW
+           Hint button and Restart button.
+           Both are connected to JS functions later.
+           ============================================= -->
+      <div class="action-row">
+
+        <!-- Hint button — flashes all unmatched cards briefly
+             Label updates to show remaining hints and cooldown -->
+        <button class="action-btn hint-btn" id="hint-btn">
+          💡 Hint (3)
+        </button>
+
+        <!-- Restart button — resets the current game -->
+        <button class="action-btn restart-btn" id="restart-btn">
+          ↺ Restart
+        </button>
+
+      </div>
+
+      <!-- =============================================
+           GAME BOARD
+           Cards are added here by JavaScript.
+           CSS Grid columns are set dynamically
+           based on the selected difficulty.
+           ============================================= -->
+      <div id="board"></div>
+
+      <!-- =============================================
+           SESSION LEADERBOARD
+           Shows top 5 scores from the current session.
+           Updated by JS after every win.
+           Resets when the page is closed.
+           ============================================= -->
+      <div class="leaderboard">
+        <h4>🏆 Round Scores</h4>
+        <!-- Entries added here by JS after each win -->
+        <div id="lb-entries">
+          <!-- Default message when no scores yet -->
+          <div class="lb-empty">No scores yet this session!</div>
+        </div>
+      </div>
+
+      <!-- =============================================
+           VOCABULARY LOG
+           Shows matched words as the game progresses.
+           Each matched pair adds a new row here.
+           Resets at the start of each new game.
+           ============================================= -->
+      <div class="vocab-log">
+
+        <h4>📖 Words You've Matched</h4>
+
+        <!-- Column headers row -->
+        <div class="vocab-log-header">
+          <span></span>                          <!-- emoji column — no header -->
+          <span class="h-en">English</span>
+          <span class="h-jp">Japanese</span>
+          <span class="h-pr">Pronunciation</span>
+        </div>
+
+        <!-- Vocab rows are added here by JS as pairs are matched -->
+        <div id="vocab-log-entries">
+          <!-- Default placeholder before any matches -->
+          <div id="vocab-ph" class="vocab-ph">
+            Match a pair to see vocabulary here!
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- end .game-wrap -->
   </div>
 
   <!-- =============================================
