@@ -212,3 +212,45 @@ function handleStartBtn() {
 // button is clicked.
 // =============================================
 document.getElementById('start-btn').addEventListener('click', handleStartBtn);
+
+// =============================================
+// confirmNames()
+// Called when the Continue button is clicked
+// on the name entry screen.
+// Validates that both name fields are filled.
+// If valid — saves names and starts the game.
+// If invalid — shows a warning message.
+// =============================================
+function confirmNames() {
+
+  // Read what was typed in each input field
+  // .trim() removes any accidental spaces
+  const n1 = document.getElementById('name-p1').value.trim();
+  const n2 = document.getElementById('name-p2').value.trim();
+
+  // Get the warning message element
+  const warn = document.getElementById('name-warn');
+
+  // If either field is empty — show warning and stop
+  if (!n1 || !n2) {
+    warn.classList.add('show'); // makes warning visible
+    return;                     // stop here — don't proceed
+  }
+
+  // Both fields are filled — hide warning just in case
+  warn.classList.remove('show');
+
+  // Save the names to our playerNames array
+  // Index 0 = Player 1, Index 1 = Player 2
+  playerNames[0] = n1;
+  playerNames[1] = n2;
+
+  // Start the game — this function comes in a later step
+  startGame();
+}
+
+// =============================================
+// Connect the Continue button to confirmNames.
+// Every time it's clicked, confirmNames() runs.
+// =============================================
+document.getElementById('continue-btn').addEventListener('click', confirmNames);

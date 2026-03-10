@@ -167,7 +167,72 @@
        Asks both players to type their names.
        ============================================= -->
   <div id="name-screen" class="screen">
-    <!-- Name entry content will be added later -->
+    <!-- =============================================
+         NAME ENTRY SCREEN WRAPPER
+         Same centered layout as the menu screen.
+         Only visible when 2 Players is selected
+         and Start Game is clicked.
+         ============================================= -->
+    <div class="menu-wrap">
+
+      <!-- Same branding as menu screen -->
+      <div class="byline">✦ made by Carla J.G ✦</div>
+      <div class="game-logo">Koto<span>Match</span></div>
+
+      <!-- Subtitle specific to this screen -->
+      <div class="logo-sub" style="margin-bottom: 28px">
+        Who's playing today?
+      </div>
+
+      <!-- =============================================
+           NAME ENTRY CARD
+           Contains two input fields — one per player.
+           Both are required before continuing.
+           ============================================= -->
+      <div class="menu-card" style="max-width: 440px">
+        <h3>👥 Player Names</h3>
+
+        <!-- Player 1 name input -->
+        <div class="name-field">
+          <span class="name-label">Player 1</span>
+          <input
+            id="name-p1"
+            class="name-input"
+            type="text"
+            maxlength="16"
+            placeholder="Enter name..."
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Player 2 name input -->
+        <div class="name-field">
+          <span class="name-label">Player 2</span>
+          <input
+            id="name-p2"
+            class="name-input"
+            type="text"
+            maxlength="16"
+            placeholder="Enter name..."
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Warning message — hidden by default.
+             JS shows this if either field is empty
+             when Continue is clicked. -->
+        <div id="name-warn" class="name-warn">
+          ⚠️ Both players need a name to continue.
+        </div>
+
+      </div>
+
+      <!-- Continue button — same style as Start Game button -->
+      <button class="start-btn" id="continue-btn">
+        ▶ &nbsp; Continue
+      </button>
+
+    </div><!-- end .menu-wrap -->
   </div>
 
   <!-- =============================================

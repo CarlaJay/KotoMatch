@@ -507,3 +507,70 @@ body {
   transform: scale(1.02);
   box-shadow: 0 8px 28px var(--glow);
 }
+
+/* =============================================
+   NAME ENTRY SCREEN
+   Styles for the player name input fields
+   on the 2-player name entry screen.
+   ============================================= */
+
+/* Wrapper for each name field — label + input together */
+.name-field {
+  margin-bottom: 14px; /* space between the two fields */
+}
+
+/* The small label above each input
+   e.g. "PLAYER 1" and "PLAYER 2" */
+.name-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: block;        /* sits on its own line above the input */
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* The text input field itself */
+.name-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--surface2);     /* deep navy background */
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);              /* near white text */
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  outline: none;                   /* removes default browser outline */
+  transition: border-color 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.5px;
+}
+
+/* Pink border and glow when input is clicked/focused */
+.name-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+}
+
+/* Placeholder text color */
+.name-input::placeholder {
+  color: var(--muted);
+}
+
+/* =============================================
+   WARNING MESSAGE
+   Shows when Continue is clicked but one or
+   both name fields are empty.
+   Hidden by default using display: none.
+   JS adds class "show" to make it visible.
+   ============================================= */
+.name-warn {
+  display: none;           /* hidden by default */
+  color: var(--danger);    /* soft red */
+  font-size: 0.78rem;
+  margin-top: 8px;
+}
+
+/* JS adds this class to show the warning */
+.name-warn.show {
+  display: block;
+}
