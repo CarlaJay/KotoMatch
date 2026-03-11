@@ -1148,3 +1148,181 @@ body {
   font-size: 0.78rem;
   padding: 4px 0;
 }
+
+/* =============================================
+   WIN OVERLAY STYLES
+   All elements inside the win screen.
+   ============================================= */
+
+/* Trophy emoji — pops in with spring bounce */
+.win-trophy {
+  font-size: 3.2rem;
+  animation: pop 0.5s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* "Well done, [name]!" heading */
+.win-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 900;
+  color: var(--text);
+  animation: pop 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* The player name inside the heading — pink */
+.win-heading span {
+  color: var(--accent);
+}
+
+/* Sub message below heading */
+.win-sub {
+  color: var(--muted);
+  font-size: 0.86rem;
+  animation: fadeUp 0.4s 0.25s ease both;
+}
+
+/* Perfect memory badge — hidden by default
+   JS adds class "show" when zero mistakes */
+.perfect-badge {
+  display: none;
+  background: linear-gradient(120deg, var(--accent2), var(--accent));
+  color: var(--bg);
+  font-family: 'Playfair Display', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 7px 20px;
+  border-radius: 50px;
+  animation: pop 0.5s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* JS adds this to show the badge */
+.perfect-badge.show {
+  display: block;
+}
+
+/* Star rating display */
+.win-stars {
+  font-size: 1.8rem;
+  letter-spacing: 4px;
+  animation: fadeUp 0.4s 0.3s ease both;
+}
+
+/* Stats grid — three boxes side by side */
+.win-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px 0;
+  animation: fadeUp 0.4s 0.3s ease both;
+}
+
+/* Individual stat box in win screen */
+.win-stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 12px;
+  text-align: center;
+}
+
+/* Stat label e.g. "Score" */
+.win-stat-label {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+/* Stat value e.g. "650" */
+.win-stat-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+/* Vocabulary review chips container
+   Scrollable if there are many words */
+.win-vocab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  justify-content: center;
+  max-width: 500px;
+  margin: 8px 0;
+  max-height: 160px;
+  overflow-y: auto;
+  animation: fadeUp 0.4s 0.35s ease both;
+}
+
+/* Individual vocab chip */
+.vocab-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 11px;
+  font-size: 0.74rem;
+  color: var(--text);
+}
+
+/* Japanese word inside chip — teal */
+.vocab-chip span {
+  color: var(--accent2);
+}
+
+/* Win screen buttons container */
+.win-btns {
+  display: flex;
+  gap: 10px;
+  animation: fadeUp 0.4s 0.4s ease both;
+}
+
+/* Base style for overlay buttons */
+.obtn {
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+/* Primary button — pink */
+.obtn.primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Primary button hover — turns teal */
+.obtn.primary:hover {
+  background: var(--accent2);
+  color: var(--text);
+  transform: scale(1.03);
+}
+
+/* Secondary button — muted border */
+.obtn.sec {
+  background: transparent;
+  border: 1.5px solid var(--muted);
+  color: var(--muted);
+}
+
+/* Secondary button hover — turns pink */
+.obtn.sec:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Game over heading — red */
+.go-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--danger);
+  animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
