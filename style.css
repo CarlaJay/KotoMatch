@@ -117,7 +117,7 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none; /* clicks pass through to elements below */
-  z-index: 199;
+  z-index: 9999;
   display: none;        /* hidden until win triggers confetti */
 }
 
