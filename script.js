@@ -256,6 +256,276 @@ function confirmNames() {
 document.getElementById('continue-btn').addEventListener('click', confirmNames);
 
 // =============================================
+// VOCABULARY BANKS
+// This is the full word database for the game.
+// There are 5 themes — each has 35 words.
+// Every new game randomly draws from this bank
+// based on difficulty:
+// Easy = 6 pairs, Medium = 8 pairs, Hard = 10 pairs
+// So no two games are ever the same!
+//
+// Each word object has 4 properties:
+// emoji — a visual hint shown on the card
+// en    — the English word
+// jp    — the Japanese characters
+// ro    — the romaji (pronunciation guide)
+// =============================================
+const VOCAB_BANKS = {
+
+  // ---- 🌿 NATURE THEME ----
+  nature: {
+    name: 'Nature',
+    icon: '🌿',
+    bank: [
+      { emoji:'🌿', en:'Forest',       jp:'森',         ro:'Mori'          },
+      { emoji:'🌸', en:'Flower',       jp:'花',         ro:'Hana'          },
+      { emoji:'🌙', en:'Moon',         jp:'月',         ro:'Tsuki'         },
+      { emoji:'🌊', en:'Ocean',        jp:'海',         ro:'Umi'           },
+      { emoji:'🔥', en:'Fire',         jp:'火',         ro:'Hi'            },
+      { emoji:'⭐', en:'Star',         jp:'星',         ro:'Hoshi'         },
+      { emoji:'🌾', en:'Field',        jp:'野原',       ro:'Nohara'        },
+      { emoji:'🍂', en:'Autumn',       jp:'秋',         ro:'Aki'           },
+      { emoji:'❄️', en:'Snow',         jp:'雪',         ro:'Yuki'          },
+      { emoji:'🌬️', en:'Wind',         jp:'風',         ro:'Kaze'          },
+      { emoji:'⛰️', en:'Mountain',     jp:'山',         ro:'Yama'          },
+      { emoji:'🌈', en:'Rainbow',      jp:'虹',         ro:'Niji'          },
+      { emoji:'☁️', en:'Cloud',        jp:'雲',         ro:'Kumo'          },
+      { emoji:'🌩️', en:'Thunder',      jp:'雷',         ro:'Kaminari'      },
+      { emoji:'🍃', en:'Leaf',         jp:'葉',         ro:'Ha'            },
+      { emoji:'🌱', en:'Sprout',       jp:'芽',         ro:'Me'            },
+      { emoji:'🪨', en:'Rock',         jp:'岩',         ro:'Iwa'           },
+      { emoji:'💧', en:'Water',        jp:'水',         ro:'Mizu'          },
+      { emoji:'🌞', en:'Sun',          jp:'太陽',       ro:'Taiyou'        },
+      { emoji:'🌍', en:'Earth',        jp:'地球',       ro:'Chikyuu'       },
+      { emoji:'🌫️', en:'Fog',          jp:'霧',         ro:'Kiri'          },
+      { emoji:'🌻', en:'Sunflower',    jp:'ひまわり',   ro:'Himawari'      },
+      { emoji:'🍄', en:'Mushroom',     jp:'キノコ',     ro:'Kinoko'        },
+      { emoji:'🌴', en:'Palm Tree',    jp:'ヤシ',       ro:'Yashi'         },
+      { emoji:'🦋', en:'Butterfly',    jp:'蝶',         ro:'Chou'          },
+      { emoji:'🌝', en:'Full Moon',    jp:'満月',       ro:'Mangetsu'      },
+      { emoji:'🌊', en:'Wave',         jp:'波',         ro:'Nami'          },
+      { emoji:'🌠', en:'Shooting Star',jp:'流れ星',     ro:'Nagareboshi'   },
+      { emoji:'🪸', en:'Coral',        jp:'珊瑚',       ro:'Sango'         },
+      { emoji:'🌋', en:'Volcano',      jp:'火山',       ro:'Kazan'         },
+      { emoji:'🍀', en:'Clover',       jp:'クローバー', ro:'Kuroobaa'      },
+      { emoji:'🌺', en:'Hibiscus',     jp:'ハイビスカス',ro:'Haibisukasu'  },
+      { emoji:'🏕️', en:'Camping',      jp:'キャンプ',   ro:'Kyanpu'        },
+      { emoji:'🌄', en:'Sunrise',      jp:'夜明け',     ro:'Yoake'         },
+      { emoji:'🪵', en:'Wood',         jp:'木材',       ro:'Mokuzai'       },
+    ]
+  },
+
+  // ---- 🐶 ANIMALS THEME ----
+  animals: {
+    name: 'Animals',
+    icon: '🐶',
+    bank: [
+      { emoji:'🐶', en:'Dog',          jp:'犬',         ro:'Inu'           },
+      { emoji:'🐱', en:'Cat',          jp:'猫',         ro:'Neko'          },
+      { emoji:'🐟', en:'Fish',         jp:'魚',         ro:'Sakana'        },
+      { emoji:'🐦', en:'Bird',         jp:'鳥',         ro:'Tori'          },
+      { emoji:'🐘', en:'Elephant',     jp:'象',         ro:'Zou'           },
+      { emoji:'🦊', en:'Fox',          jp:'狐',         ro:'Kitsune'       },
+      { emoji:'🐇', en:'Rabbit',       jp:'兎',         ro:'Usagi'         },
+      { emoji:'🐻', en:'Bear',         jp:'熊',         ro:'Kuma'          },
+      { emoji:'🐼', en:'Panda',        jp:'パンダ',     ro:'Panda'         },
+      { emoji:'🐯', en:'Tiger',        jp:'虎',         ro:'Tora'          },
+      { emoji:'🦁', en:'Lion',         jp:'ライオン',   ro:'Raion'         },
+      { emoji:'🐸', en:'Frog',         jp:'蛙',         ro:'Kaeru'         },
+      { emoji:'🐢', en:'Turtle',       jp:'亀',         ro:'Kame'          },
+      { emoji:'🐍', en:'Snake',        jp:'蛇',         ro:'Hebi'          },
+      { emoji:'🦅', en:'Eagle',        jp:'鷹',         ro:'Taka'          },
+      { emoji:'🐬', en:'Dolphin',      jp:'イルカ',     ro:'Iruka'         },
+      { emoji:'🐋', en:'Whale',        jp:'鯨',         ro:'Kujira'        },
+      { emoji:'🦈', en:'Shark',        jp:'鮫',         ro:'Same'          },
+      { emoji:'🐙', en:'Octopus',      jp:'蛸',         ro:'Tako'          },
+      { emoji:'🦀', en:'Crab',         jp:'蟹',         ro:'Kani'          },
+      { emoji:'🐝', en:'Bee',          jp:'蜂',         ro:'Hachi'         },
+      { emoji:'🐺', en:'Wolf',         jp:'狼',         ro:'Ookami'        },
+      { emoji:'🦌', en:'Deer',         jp:'鹿',         ro:'Shika'         },
+      { emoji:'🦔', en:'Hedgehog',     jp:'ハリネズミ', ro:'Harinezumi'    },
+      { emoji:'🦜', en:'Parrot',       jp:'オウム',     ro:'Oumu'          },
+      { emoji:'🦢', en:'Swan',         jp:'白鳥',       ro:'Hakuchou'      },
+      { emoji:'🐓', en:'Rooster',      jp:'鶏',         ro:'Niwatori'      },
+      { emoji:'🐨', en:'Koala',        jp:'コアラ',     ro:'Koara'         },
+      { emoji:'🦒', en:'Giraffe',      jp:'キリン',     ro:'Kirin'         },
+      { emoji:'🦓', en:'Zebra',        jp:'シマウマ',   ro:'Shimauma'      },
+      { emoji:'🐆', en:'Leopard',      jp:'豹',         ro:'Hyou'          },
+      { emoji:'🦩', en:'Flamingo',     jp:'フラミンゴ', ro:'Furamingo'     },
+      { emoji:'🦋', en:'Butterfly',    jp:'蝶',         ro:'Chou'          },
+      { emoji:'🐗', en:'Boar',         jp:'猪',         ro:'Inoshishi'     },
+      { emoji:'🦏', en:'Rhino',        jp:'サイ',       ro:'Sai'           },
+    ]
+  },
+
+  // ---- 🍎 FOOD THEME ----
+  food: {
+    name: 'Food',
+    icon: '🍎',
+    bank: [
+      { emoji:'🍎', en:'Apple',        jp:'りんご',     ro:'Ringo'         },
+      { emoji:'🍊', en:'Orange',       jp:'みかん',     ro:'Mikan'         },
+      { emoji:'🍋', en:'Lemon',        jp:'レモン',     ro:'Remon'         },
+      { emoji:'🍇', en:'Grape',        jp:'ぶどう',     ro:'Budou'         },
+      { emoji:'🍓', en:'Strawberry',   jp:'いちご',     ro:'Ichigo'        },
+      { emoji:'🍣', en:'Sushi',        jp:'寿司',       ro:'Sushi'         },
+      { emoji:'🍜', en:'Ramen',        jp:'ラーメン',   ro:'Raamen'        },
+      { emoji:'🍵', en:'Tea',          jp:'お茶',       ro:'Ocha'          },
+      { emoji:'🍙', en:'Rice Ball',    jp:'おにぎり',   ro:'Onigiri'       },
+      { emoji:'🍰', en:'Cake',         jp:'ケーキ',     ro:'Keeki'         },
+      { emoji:'🍩', en:'Donut',        jp:'ドーナツ',   ro:'Doonatsu'      },
+      { emoji:'🍦', en:'Ice Cream',    jp:'アイス',     ro:'Aisu'          },
+      { emoji:'🍕', en:'Pizza',        jp:'ピザ',       ro:'Piza'          },
+      { emoji:'🍔', en:'Burger',       jp:'バーガー',   ro:'Baagaa'        },
+      { emoji:'🥗', en:'Salad',        jp:'サラダ',     ro:'Sarada'        },
+      { emoji:'🍱', en:'Bento',        jp:'弁当',       ro:'Bentou'        },
+      { emoji:'🍛', en:'Curry',        jp:'カレー',     ro:'Karee'         },
+      { emoji:'🥟', en:'Dumpling',     jp:'餃子',       ro:'Gyouza'        },
+      { emoji:'🍤', en:'Shrimp',       jp:'エビ',       ro:'Ebi'           },
+      { emoji:'🥚', en:'Egg',          jp:'卵',         ro:'Tamago'        },
+      { emoji:'🧀', en:'Cheese',       jp:'チーズ',     ro:'Chiizu'        },
+      { emoji:'🥩', en:'Meat',         jp:'肉',         ro:'Niku'          },
+      { emoji:'🥦', en:'Broccoli',     jp:'ブロッコリー',ro:'Burokkorii'   },
+      { emoji:'🥕', en:'Carrot',       jp:'にんじん',   ro:'Ninjin'        },
+      { emoji:'🧅', en:'Onion',        jp:'玉ねぎ',     ro:'Tamanegi'      },
+      { emoji:'🍑', en:'Peach',        jp:'もも',       ro:'Momo'          },
+      { emoji:'🍒', en:'Cherry',       jp:'さくらんぼ', ro:'Sakuranbo'     },
+      { emoji:'🥭', en:'Mango',        jp:'マンゴー',   ro:'Mangoo'        },
+      { emoji:'🍍', en:'Pineapple',    jp:'パイナップル',ro:'Painappuru'   },
+      { emoji:'🍌', en:'Banana',       jp:'バナナ',     ro:'Banana'        },
+      { emoji:'🥝', en:'Kiwi',         jp:'キウイ',     ro:'Kiui'          },
+      { emoji:'🍈', en:'Melon',        jp:'メロン',     ro:'Meron'         },
+      { emoji:'🫐', en:'Blueberry',    jp:'ブルーベリー',ro:'Buruuberii'   },
+      { emoji:'🍟', en:'Fries',        jp:'フライ',     ro:'Furai'         },
+      { emoji:'🧆', en:'Falafel',      jp:'ファラフェル',ro:'Faraferu'     },
+    ]
+  },
+
+  // ---- 🏠 DAILY LIFE THEME ----
+  daily: {
+    name: 'Daily Life',
+    icon: '🏠',
+    bank: [
+      { emoji:'🏠', en:'House',        jp:'家',         ro:'Ie'            },
+      { emoji:'📚', en:'Book',         jp:'本',         ro:'Hon'           },
+      { emoji:'🚗', en:'Car',          jp:'車',         ro:'Kuruma'        },
+      { emoji:'✈️', en:'Plane',        jp:'飛行機',     ro:'Hikouki'       },
+      { emoji:'📱', en:'Phone',        jp:'電話',       ro:'Denwa'         },
+      { emoji:'⏰', en:'Clock',        jp:'時計',       ro:'Tokei'         },
+      { emoji:'🎒', en:'Bag',          jp:'鞄',         ro:'Kaban'         },
+      { emoji:'💡', en:'Light',        jp:'電気',       ro:'Denki'         },
+      { emoji:'🪑', en:'Chair',        jp:'椅子',       ro:'Isu'           },
+      { emoji:'🛏️', en:'Bed',          jp:'ベッド',     ro:'Beddo'         },
+      { emoji:'🚪', en:'Door',         jp:'ドア',       ro:'Doa'           },
+      { emoji:'🪟', en:'Window',       jp:'窓',         ro:'Mado'          },
+      { emoji:'🖥️', en:'Computer',     jp:'パソコン',   ro:'Pasokon'       },
+      { emoji:'📺', en:'TV',           jp:'テレビ',     ro:'Terebi'        },
+      { emoji:'🎵', en:'Music',        jp:'音楽',       ro:'Ongaku'        },
+      { emoji:'📷', en:'Camera',       jp:'カメラ',     ro:'Kamera'        },
+      { emoji:'✏️', en:'Pencil',       jp:'鉛筆',       ro:'Enpitsu'       },
+      { emoji:'📝', en:'Notebook',     jp:'ノート',     ro:'Nooto'         },
+      { emoji:'🧹', en:'Broom',        jp:'ほうき',     ro:'Houki'         },
+      { emoji:'🪴', en:'Plant',        jp:'植物',       ro:'Shokubutsu'    },
+      { emoji:'🛁', en:'Bathtub',      jp:'お風呂',     ro:'Ofuro'         },
+      { emoji:'🪥', en:'Toothbrush',   jp:'歯ブラシ',   ro:'Haburashi'     },
+      { emoji:'🧺', en:'Laundry',      jp:'洗濯',       ro:'Sentaku'       },
+      { emoji:'🔑', en:'Key',          jp:'鍵',         ro:'Kagi'          },
+      { emoji:'🪞', en:'Mirror',       jp:'鏡',         ro:'Kagami'        },
+      { emoji:'🧸', en:'Teddy Bear',   jp:'ぬいぐるみ', ro:'Nuigurumi'     },
+      { emoji:'🎮', en:'Game',         jp:'ゲーム',     ro:'Geemu'         },
+      { emoji:'🖊️', en:'Pen',          jp:'ペン',       ro:'Pen'           },
+      { emoji:'🔦', en:'Flashlight',   jp:'懐中電灯',   ro:'Kaichuudentou' },
+      { emoji:'🧲', en:'Magnet',       jp:'磁石',       ro:'Jishaku'       },
+      { emoji:'💼', en:'Briefcase',    jp:'ブリーフケース',ro:'Buriifukeesu'},
+      { emoji:'🛒', en:'Cart',         jp:'カート',     ro:'Kaato'         },
+      { emoji:'🚿', en:'Shower',       jp:'シャワー',   ro:'Shawaa'        },
+      { emoji:'🧴', en:'Lotion',       jp:'ローション', ro:'Rooshon'       },
+      { emoji:'🗑️', en:'Trash Can',    jp:'ゴミ箱',     ro:'Gomibako'      },
+    ]
+  },
+
+  // ---- 🤲 BODY & SELF THEME ----
+  body: {
+    name: 'Body & Self',
+    icon: '🤲',
+    bank: [
+      { emoji:'👁️', en:'Eye',          jp:'目',         ro:'Me'            },
+      { emoji:'👃', en:'Nose',         jp:'鼻',         ro:'Hana'          },
+      { emoji:'👄', en:'Mouth',        jp:'口',         ro:'Kuchi'         },
+      { emoji:'👂', en:'Ear',          jp:'耳',         ro:'Mimi'          },
+      { emoji:'🦷', en:'Tooth',        jp:'歯',         ro:'Ha'            },
+      { emoji:'💪', en:'Arm',          jp:'腕',         ro:'Ude'           },
+      { emoji:'🦵', en:'Leg',          jp:'足',         ro:'Ashi'          },
+      { emoji:'🤲', en:'Hands',        jp:'手',         ro:'Te'            },
+      { emoji:'🫀', en:'Heart',        jp:'心臓',       ro:'Shinzou'       },
+      { emoji:'🧠', en:'Brain',        jp:'脳',         ro:'Nou'           },
+      { emoji:'🦴', en:'Bone',         jp:'骨',         ro:'Hone'          },
+      { emoji:'😊', en:'Happy',        jp:'嬉しい',     ro:'Ureshii'       },
+      { emoji:'😢', en:'Sad',          jp:'悲しい',     ro:'Kanashii'      },
+      { emoji:'😡', en:'Angry',        jp:'怒り',       ro:'Ikari'         },
+      { emoji:'😴', en:'Sleepy',       jp:'眠い',       ro:'Nemui'         },
+      { emoji:'😰', en:'Nervous',      jp:'緊張',       ro:'Kinchou'       },
+      { emoji:'🤒', en:'Sick',         jp:'病気',       ro:'Byouki'        },
+      { emoji:'💊', en:'Medicine',     jp:'薬',         ro:'Kusuri'        },
+      { emoji:'🏃', en:'Run',          jp:'走る',       ro:'Hashiru'       },
+      { emoji:'🧘', en:'Relax',        jp:'リラックス', ro:'Rirakkusu'     },
+      { emoji:'😎', en:'Cool',         jp:'かっこいい', ro:'Kakkoii'       },
+      { emoji:'🥱', en:'Yawn',         jp:'あくび',     ro:'Akubi'         },
+      { emoji:'🤔', en:'Think',        jp:'考える',     ro:'Kangaeru'      },
+      { emoji:'😍', en:'Love',         jp:'大好き',     ro:'Daisuki'       },
+      { emoji:'🙏', en:'Pray',         jp:'祈る',       ro:'Inoru'         },
+      { emoji:'💃', en:'Dance',        jp:'踊る',       ro:'Odoru'         },
+      { emoji:'🎤', en:'Sing',         jp:'歌う',       ro:'Utau'          },
+      { emoji:'👀', en:'Look',         jp:'見る',       ro:'Miru'          },
+      { emoji:'🩸', en:'Blood',        jp:'血',         ro:'Chi'           },
+      { emoji:'🤗', en:'Hug',          jp:'抱擁',       ro:'Houyou'        },
+      { emoji:'💆', en:'Rest',         jp:'休む',       ro:'Yasumu'        },
+      { emoji:'🧖', en:'Refresh',      jp:'リフレッシュ',ro:'Rifuresshu'   },
+      { emoji:'🤸', en:'Stretch',      jp:'ストレッチ', ro:'Sutoreccchi'   },
+      { emoji:'😤', en:'Proud',        jp:'誇り',       ro:'Hokori'        },
+      { emoji:'🥳', en:'Celebrate',    jp:'お祝い',     ro:'Oiwai'         },
+    ]
+  },
+
+}; // end VOCAB_BANKS
+
+// =============================================
+// DIFFICULTY CONFIG
+// Defines the number of columns, pairs, and
+// hints available for each difficulty level.
+// The game reads from this when building the board.
+// =============================================
+const DIFF = {
+  easy:   { cols: 4, pairs: 6,  hints: 3 },
+  medium: { cols: 4, pairs: 8,  hints: 2 },
+  hard:   { cols: 5, pairs: 10, hints: 1 },
+};
+
+// =============================================
+// shuffle(arr)
+// Takes any array and returns a NEW shuffled copy.
+// Uses the Fisher-Yates algorithm — the most
+// reliable and unbiased shuffle method.
+// The original array is NOT changed.
+// =============================================
+function shuffle(arr) {
+  // Make a copy so we don't modify the original
+  let a = [...arr];
+
+  // Loop from the end of the array backwards
+  for (let i = a.length - 1; i > 0; i--) {
+
+    // Pick a random index from 0 to i
+    const j = Math.floor(Math.random() * (i + 1));
+
+    // Swap the current element with the random one
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+
+  return a; // return the shuffled copy
+}
+
+// =============================================
 // GAME STATE VARIABLES
 // These track everything that happens during
 // a game session. They reset every new game.
