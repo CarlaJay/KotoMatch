@@ -1427,13 +1427,11 @@ function launchConfetti() {
       }
     });
 
-    // Run for 300 frames then stop
+    // Keep the confetti running until manually stopped
+    // Confetti only stops when player clicks
+    // Play Again or Menu — not on its own
     frame++;
-    if (frame < 300) {
-      confettiId = requestAnimationFrame(draw);
-    } else {
-      stopConfetti();
-    }
+    confettiId = requestAnimationFrame(draw);
   }
 
   draw();
