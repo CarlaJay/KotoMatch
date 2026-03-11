@@ -1375,7 +1375,7 @@ let confettiId = null; // stores animation frame id
 
 function launchConfetti() {
   const canvas = document.getElementById('confetti-canvas');
-  canvas.style.display = 'block';
+  canvas.style.setProperty('display', 'block', 'important');
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
   const ctx = canvas.getContext('2d');
