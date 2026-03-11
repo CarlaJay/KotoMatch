@@ -1177,30 +1177,268 @@ document.getElementById('back-btn')
     showScreen('menu-screen');    // go back to menu
   });
 
-  // =============================================
-// TEMPORARY PLACEHOLDER FUNCTIONS
-// These are empty versions of functions that
-// will be fully built in the next steps.
-// They prevent the game from crashing while
-// we finish building everything.
 // =============================================
-
-// Placeholder for sound — will be built in Step 11
-function playSound(type) {
-  // does nothing for now
-}
-
-// Placeholder for confetti — will be built in Step 11
-function stopConfetti() {
-  // does nothing for now
-}
-
-// Placeholder for win — will be built in Step 11
+// onWin()
+// Called when all pairs are matched.
+// Stops timer, calculates results, shows
+// the win overlay with all stats and vocab.
+// =============================================
 function onWin() {
-  // does nothing for now
+  stopTimer();      // stop the timer
+  playSound('win'); // play win sound
+  launchConfetti(); // launch confetti
+
+  // Calculate elapsed time
+  // Count up: use seconds directly
+  // Countdown: subtract remaining from total
+  const elapsed = settings.timerMode === 'countdown'
+    ? settings.customCountdown - seconds
+    : seconds;
+  const timeStr = fmtTime(elapsed);
+
+  // Add this round to the session leaderboard
+  sessionScores.push({ score, moves, time: timeStr });
+
+  // Sort by highest score and keep top 5
+  sessionScores.sort((a, b) => b.score - a.score);
+  sessionScores = sessionScores.slice(0, 5);
+  renderLB(); // update the leaderboard panel
+
+  // Calculate star rating based on mistakes
+  let stars;
+  if      (mistakeCount === 0) stars = '⭐⭐⭐';
+  else if (mistakeCount <= 3)  stars = '⭐⭐';
+  else                         stars = '⭐';
+
+  // Determine winner name and sub message
+  let winnerName, subMsg;
+
+  if (settings.players === 2) {
+    // 2-player mode — compare scores
+    if (p1Score > p2Score) {
+      winnerName = playerNames[0];
+      subMsg     = `${playerNames[0]} wins! 🎉`;
+    } else if (p2Score > p1Score) {
+      winnerName = playerNames[1];
+      subMsg     = `${playerNames[1]} wins! 🎉`;
+    } else {
+      winnerName = 'Both of you';
+      subMsg     = "It's a tie! 🤝";
+    }
+  } else {
+    // 1-player mode
+    winnerName = playerNames[0];
+    subMsg     = 'All pairs matched!';
+  }
+
+  // Update all win overlay elements
+  document.getElementById('win-name').textContent  = winnerName;
+  document.getElementById('win-score').textContent = score;
+  document.getElementById('win-moves').textContent = moves;
+  document.getElementById('win-time').textContent  = timeStr;
+  document.getElementById('win-stars').textContent = stars;
+  document.getElementById('win-sub').textContent   = subMsg;
+
+  // Show or hide perfect badge
+  const badge = document.getElementById('perfect-badge');
+  if (mistakeCount === 0) {
+    badge.classList.add('show');
+  } else {
+    badge.classList.remove('show');
+  }
+
+  // Build vocabulary review chips
+  // One chip per matched word showing:
+  // emoji English → Japanese (romaji)
+  const chipsContainer = document.getElementById('win-vocab-chips');
+  chipsContainer.innerHTML = '';
+  activeVocab.forEach(vocab => {
+    const chip = document.createElement('div');
+    chip.classList.add('vocab-chip');
+    chip.innerHTML =
+      `${vocab.emoji} ${vocab.en} → ` +
+      `<span>${vocab.jp}</span> (${vocab.ro})`;
+    chipsContainer.appendChild(chip);
+  });
+
+  // Show the win overlay
+  document.getElementById('win-overlay').classList.add('show');
 }
 
-// Placeholder for game over — will be built in Step 11
+// =============================================
+// onGameOver()
+// Called when countdown timer hits zero.
+// Shows the game over overlay.
+// =============================================
 function onGameOver() {
-  // does nothing for now
+  stopTimer();
+  playSound('gameover');
+  document.getElementById('go-msg').textContent =
+    `Better luck next time, ${playerNames[0]}!`;
+  document.getElementById('gameover-overlay').classList.add('show');
+}
+
+// =============================================
+// goMenu()
+// Goes back to the menu screen.
+// Cleans up timer, overlays, and confetti.
+// =============================================
+function goMenu() {
+  clearInterval(timerInterval);
+  hideOverlays();
+  stopConfetti();
+  showScreen('menu-screen');
+}
+
+// =============================================
+// SOUND EFFECTS
+// Uses Web Audio API to generate sounds
+// programmatically — no audio files needed.
+// Each sound is made by creating an oscillator
+// and shaping its frequency and volume.
+// =============================================
+let audioCtx = null;
+
+// Gets or creates the audio context
+// We reuse one context for the whole game
+function getAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext ||
+                    window.webkitAudioContext)();
+  }
+  return audioCtx;
+}
+
+function playSound(type) {
+  try {
+    const ctx = getAudio();
+    const o   = ctx.createOscillator(); // creates the tone
+    const g   = ctx.createGain();       // controls the volume
+    o.connect(g);
+    g.connect(ctx.destination); // connects to speakers
+    const t = ctx.currentTime;
+
+    if (type === 'match') {
+      // Two short ascending tones — positive feeling
+      o.frequency.setValueAtTime(523, t);
+      o.frequency.setValueAtTime(659, t + 0.1);
+      g.gain.setValueAtTime(0.1, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+    }
+
+    if (type === 'miss') {
+      // Short low buzzer — negative feedback
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(200, t);
+      g.gain.setValueAtTime(0.06, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+    }
+
+    if (type === 'win') {
+      // Three ascending tones — celebration
+      o.frequency.setValueAtTime(523, t);
+      o.frequency.setValueAtTime(659, t + 0.15);
+      o.frequency.setValueAtTime(784, t + 0.3);
+      g.gain.setValueAtTime(0.12, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+    }
+
+    if (type === 'gameover') {
+      // Two descending tones — defeated feeling
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(300, t);
+      o.frequency.setValueAtTime(200, t + 0.2);
+      g.gain.setValueAtTime(0.1, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+    }
+
+    o.start(t);
+    o.stop(t + 0.6);
+
+  } catch(e) {
+    // If audio fails silently — game still works
+  }
+}
+
+// =============================================
+// CONFETTI
+// Canvas-based confetti animation on win.
+// Uses colored rectangles in palette colors.
+// No libraries needed.
+// =============================================
+let confettiId = null; // stores animation frame id
+
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.style.display = 'block';
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+
+  // Palette colors for the confetti pieces
+  const colors = [
+    '#FDB5CE', // pink
+    '#3B9797', // teal
+    '#a8dede', // light teal
+    '#f5eef2', // near white
+    '#16476A', // ocean
+  ];
+
+  // Create 130 confetti particles with random properties
+  const particles = Array.from({ length: 130 }, () => ({
+    x:   Math.random() * canvas.width,
+    y:   Math.random() * -canvas.height, // start above screen
+    r:   Math.random() * 8 + 4,          // size 4–12px
+    c:   colors[Math.floor(Math.random() * colors.length)],
+    vx:  (Math.random() - 0.5) * 3,      // horizontal drift
+    vy:  Math.random() * 4 + 2,          // fall speed
+    rot: Math.random() * 360,            // starting rotation
+    rv:  (Math.random() - 0.5) * 6,      // spin speed
+  }));
+
+  let frame = 0;
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw each particle as a rotated rectangle
+    particles.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.c;
+      ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.5);
+      ctx.restore();
+
+      // Update position and rotation each frame
+      p.x   += p.vx;
+      p.y   += p.vy;
+      p.rot += p.rv;
+
+      // Reset particle to top when it falls off screen
+      if (p.y > canvas.height) {
+        p.y = -20;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+
+    // Run for 300 frames then stop
+    frame++;
+    if (frame < 300) {
+      confettiId = requestAnimationFrame(draw);
+    } else {
+      stopConfetti();
+    }
+  }
+
+  draw();
+}
+
+function stopConfetti() {
+  if (confettiId) {
+    cancelAnimationFrame(confettiId);
+    confettiId = null;
+  }
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.style.display = 'none';
 }
