@@ -1177,16 +1177,6 @@ document.getElementById('back-btn')
     showScreen('menu-screen');    // go back to menu
   });
 
-// =============================================
-// onWin()
-// Called when all pairs are matched.
-// Stops timer, calculates results, shows
-// the win overlay with all stats and vocab.
-// =============================================
-function onWin() {
-  stopTimer();      // stop the timer
-  playSound('win'); // play win sound
-  launchConfetti(); // launch confetti
 
   // Calculate elapsed time
   // Count up: use seconds directly
