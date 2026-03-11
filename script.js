@@ -1176,3 +1176,31 @@ document.getElementById('back-btn')
     stopConfetti();               // stop confetti
     showScreen('menu-screen');    // go back to menu
   });
+
+  // =============================================
+// TEMPORARY PLACEHOLDER FUNCTIONS
+// These are empty versions of functions that
+// will be fully built in the next steps.
+// They prevent the game from crashing while
+// we finish building everything.
+// =============================================
+
+// Placeholder for sound — will be built in Step 11
+function playSound(type) {
+  // does nothing for now
+}
+
+// Placeholder for confetti — will be built in Step 11
+function stopConfetti() {
+  // does nothing for now
+}
+
+// Placeholder for win — will be built in Step 11
+function onWin() {
+  // does nothing for now
+}
+
+// Placeholder for game over — will be built in Step 11
+function onGameOver() {
+  // does nothing for now
+}
