@@ -428,11 +428,81 @@
   <div id="preview-num">3</div>
 </div>
 
-  <!-- Win overlay — shows when all pairs are matched -->
-  <div class="overlay" id="win-overlay"></div>
+<!-- =============================================
+     WIN OVERLAY
+     Shows when all pairs are matched.
+     Contains winner name, stars, stats,
+     vocab chips, and action buttons.
+     ============================================= -->
+<div class="overlay" id="win-overlay">
 
-  <!-- Game over overlay — shows when countdown hits zero -->
-  <div class="overlay" id="gameover-overlay"></div>
+  <!-- Trophy emoji — pops in with spring animation -->
+  <div class="win-trophy">🌸</div>
+
+  <!-- Winner name — "Well done, [name]!" -->
+  <h2 class="win-heading">
+    Well done, <span id="win-name">—</span>!
+  </h2>
+
+  <!-- Sub message — e.g. "All pairs matched!" or "[name] wins!" -->
+  <p class="win-sub" id="win-sub">All pairs matched!</p>
+
+  <!-- Perfect memory badge — only shows if zero mistakes -->
+  <div class="perfect-badge" id="perfect-badge">
+    🏆 PERFECT MEMORY!
+  </div>
+
+  <!-- Star rating — 1 to 3 stars based on mistakes -->
+  <div class="win-stars" id="win-stars">⭐⭐⭐</div>
+
+  <!-- Stats grid — Score, Moves, Time -->
+  <div class="win-grid">
+    <div class="win-stat">
+      <div class="win-stat-label">Score</div>
+      <div class="win-stat-value" id="win-score">—</div>
+    </div>
+    <div class="win-stat">
+      <div class="win-stat-label">Moves</div>
+      <div class="win-stat-value" id="win-moves">—</div>
+    </div>
+    <div class="win-stat">
+      <div class="win-stat-label">Time</div>
+      <div class="win-stat-value" id="win-time">—</div>
+    </div>
+  </div>
+
+  <!-- Vocabulary review chips —
+       shows all matched words as small tags -->
+  <div class="win-vocab-chips" id="win-vocab-chips"></div>
+
+  <!-- Action buttons -->
+  <div class="win-btns">
+    <button class="obtn primary" onclick="restartGame()">
+      Play Again
+    </button>
+    <button class="obtn sec" onclick="goMenu()">
+      Menu
+    </button>
+  </div>
+
+</div>
+  <!-- =============================================
+     GAME OVER OVERLAY
+     Shows when countdown timer hits zero.
+     ============================================= -->
+<div class="overlay" id="gameover-overlay">
+  <div style="font-size: 3rem">💔</div>
+  <h2 class="go-heading">Time's Up!</h2>
+  <p class="win-sub" id="go-msg">Better luck next time!</p>
+  <div class="win-btns">
+    <button class="obtn primary" onclick="restartGame()">
+      Try Again
+    </button>
+    <button class="obtn sec" onclick="goMenu()">
+      Menu
+    </button>
+  </div>
+</div>
 
   <!-- Confetti canvas — drawn on top of everything on win -->
   <canvas id="confetti-canvas"></canvas>
