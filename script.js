@@ -1230,14 +1230,25 @@ function onWin() {
       winnerName = 'Both of you';
       subMsg     = "It's a tie! 🤝";
     }
-  } else {
+  /**} else {
     // 1-player mode
     winnerName = playerNames[0];
     subMsg     = 'All pairs matched!';
+  }**/
+  } else {
+    // 1-player mode
+    winnerName = '';
+    subMsg     = 'You matched them all!';
   }
 
   // Update all win overlay elements
-  document.getElementById('win-name').textContent  = winnerName;
+  //document.getElementById('win-name').textContent  = winnerName;
+  const nameSpan = document.getElementById('win-name');
+  if (winnerName) {
+    nameSpan.textContent = ', ' + winnerName + '!';
+  } else {
+    nameSpan.textContent = '!';
+  }
   document.getElementById('win-score').textContent = score;
   document.getElementById('win-moves').textContent = moves;
   document.getElementById('win-time').textContent  = timeStr;

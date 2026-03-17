@@ -1160,13 +1160,19 @@ body {
   animation: pop 0.5s 0.1s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-/* "Well done, [name]!" heading */
+/* "Well done, [name]!" heading * *changed*/
 .win-heading {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: 900;
   color: var(--text);
-  animation: pop 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: bigPop 0.7s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes bigPop {
+  0%   { transform: scale(0.3); opacity: 0; }
+  70%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 /* The player name inside the heading — pink */
