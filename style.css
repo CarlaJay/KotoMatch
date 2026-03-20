@@ -485,8 +485,8 @@ body {
    ============================================= */
 .start-btn {
   width: 100%;
-  max-width: 520px;
-  padding: 15px;
+  max-width: 400px;
+  padding: 10px 24px;
   background: var(--accent);    /* pink background */
   color: var(--bg);             /* navy text */
   font-family: 'Playfair Display', serif;
