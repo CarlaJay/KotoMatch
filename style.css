@@ -1217,7 +1217,7 @@ body {
 /* Stats grid — three boxes side by side */
 .win-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 9px;
   width: 100%;
   max-width: 400px;

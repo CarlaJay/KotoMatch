@@ -1254,6 +1254,7 @@ function onWin() {
   document.getElementById('win-time').textContent  = timeStr;
   document.getElementById('win-stars').textContent = stars;
   document.getElementById('win-mistakes').textContent = `Mistakes: ${mistakeCount}`;
+  document.getElementById('win-combo').textContent = `×${combo}`;
   document.getElementById('win-sub').textContent   = subMsg;
 
   // Show or hide perfect badge
