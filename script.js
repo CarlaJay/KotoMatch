@@ -1069,7 +1069,7 @@ function updateStats() {
   document.getElementById('pairs-value').textContent =
     `${matched}/${totalPairs}`;
   document.getElementById('combo-value').textContent =
-    `×${combo || 1}`;
+    `×${combo}`;
   document.getElementById('hints-value').textContent = hintsLeft;
 }
 
