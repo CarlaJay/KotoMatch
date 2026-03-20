@@ -584,10 +584,17 @@ function startGame() {
   // Stop any timer that might still be running
   clearInterval(timerInterval);
 
-  // Reset the timer display to 0s
+  // Reset the timer display
   const timerEl = document.getElementById('timer-value');
-  timerEl.textContent = '0s';
   timerEl.classList.remove('urgent');
+
+  // Countdown — show the set time before game starts
+  // Count up — show 0s
+  if (settings.timerMode === 'countdown') {
+    timerEl.textContent = fmtTime(settings.customCountdown);
+  } else {
+    timerEl.textContent = '0s';
+  }
 
   // -- SETUP SCREENS AND UI --
   showScreen('game-screen');  // switch to game screen
