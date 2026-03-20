@@ -1211,9 +1211,9 @@ function onWin() {
 
   // Calculate star rating based on mistakes
   let stars;
-  if      (mistakeCount === 0) stars = '⭐⭐⭐';
-  else if (mistakeCount <= 3)  stars = '⭐⭐';
-  else                         stars = '⭐';
+  if      (mistakeCount <= 4) stars = '⭐⭐⭐';
+  else if (mistakeCount <= 8) stars = '⭐⭐';
+  else                        stars = '⭐';                  
 
   // Determine winner name and sub message
   let winnerName, subMsg;
@@ -1253,6 +1253,7 @@ function onWin() {
   document.getElementById('win-moves').textContent = moves;
   document.getElementById('win-time').textContent  = timeStr;
   document.getElementById('win-stars').textContent = stars;
+  document.getElementById('win-mistakes').textContent = `Mistakes: ${mistakeCount}`;
   document.getElementById('win-sub').textContent   = subMsg;
 
   // Show or hide perfect badge
