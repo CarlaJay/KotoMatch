@@ -153,6 +153,7 @@
            (2 players) or starts the game directly
            (1 player). JS handles this logic.
            ============================================= -->
+      <button class="obtn sec howto-btn" onclick="openHowTo()">How to Play</button>
       <button class="start-btn" id="start-btn">▶ &nbsp; Start Game</button>
 
       <!-- Bottom spacing so content doesn't sit flush at the bottom -->
@@ -256,14 +257,16 @@
            ============================================= -->
       <div class="game-topbar">
 
-        <!-- Game logo — same style as menu screen -->
-        <div class="gtitle">Koto<span>Match</span></div>
+  <!-- Game logo — same style as menu screen -->
+  <div class="gtitle">Koto<span>Match</span></div>
 
-        <!-- Back to menu button -->
-        <!-- JS will attach the click event later -->
-        <button class="back-btn" id="back-btn">← Menu</button>
+  <!-- Top right buttons — Menu stacked above ? -->
+  <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-end;">
+    <button class="back-btn" id="back-btn">← Menu</button>
+    <button class="back-btn" onclick="openHowTo()">?</button>
+  </div>
 
-      </div>
+</div>
 
       <!-- =============================================
            2-PLAYER PANELS
@@ -510,6 +513,26 @@
       Menu
     </button>
   </div>
+</div>
+
+  <!-- =============================================
+     HOW TO PLAY OVERLAY
+     Small popup modal — appears over any screen.
+     ============================================= -->
+<div class="howto-modal" id="howto-overlay">
+  <h2 class="howto-heading">How to Play 🎴</h2>
+  <ul class="howto-list">
+    <li>Cards are shown face-up for 3 seconds — memorize them!</li>
+    <li>Click any card to flip it over.</li>
+    <li>Flip a second card to find its match.</li>
+    <li>One English card + one Japanese card = a match!</li>
+    <li>No match? Both cards flip back — try again!</li>
+    <li>Use hints to briefly reveal all unmatched cards.</li>
+    <li>Match consecutively to build combo and bonus points!</li>
+    <li>Fewer mistakes = more stars at the end.</li>
+    <li>🏆 Match all pairs to win!</li>
+  </ul>
+  <button class="obtn primary" onclick="closeHowTo()">Got it!</button>
 </div>
 
   <!-- Confetti canvas — drawn on top of everything on win -->

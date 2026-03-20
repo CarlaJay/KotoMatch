@@ -1339,3 +1339,70 @@ body {
   color: var(--muted);
   letter-spacing: 1px;
 }
+
+/* =============================================
+   HOW TO PLAY MODAL
+   Small phone-sized popup — not full screen.
+   ============================================= */
+.howto-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 24px;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.howto-modal.show {
+  display: flex;
+}
+
+.howto-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  text-align: center;
+}
+
+.howto-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.howto-list li {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+/* How to Play button on menu screen —
+   slightly smaller than Start Game button */
+.howto-btn {
+  width: clamp(200px, 40%, 320px);
+  padding: 10px 24px;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+

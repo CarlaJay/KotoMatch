@@ -1465,3 +1465,15 @@ function stopConfetti() {
   const canvas = document.getElementById('confetti-canvas');
   canvas.style.display = 'none';
 }
+
+// =============================================
+// HOW TO PLAY
+// Opens and closes the how to play modal.
+// =============================================
+function openHowTo() {
+  document.getElementById('howto-overlay').classList.add('show');
+}
+
+function closeHowTo() {
+  document.getElementById('howto-overlay').classList.remove('show');
+}
