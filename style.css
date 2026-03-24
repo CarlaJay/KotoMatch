@@ -12,17 +12,18 @@
    change it here — and it updates everywhere.
    ============================================= */
 :root {
-  --bg:       #132440;  /* navy — main page background */
-  --surface:  #16476A;  /* ocean blue — cards, panels */
-  --surface2: #0e1d33;  /* deep navy — input backgrounds, card fronts */
-  --accent:   #FDB5CE;  /* pink — primary accent, buttons, active states */
-  --accent2:  #3B9797;  /* teal — secondary accent, timer, hints */
-  --accent3:  #a8dede;  /* light teal — tertiary highlights */
-  --text:     #f5eef2;  /* near white — main text color */
-  --muted:    #7aa0b8;  /* muted blue — secondary text, placeholders */
-  --danger:   #e07878;  /* soft red — errors and warnings */
-  --border:   rgba(253,181,206,0.2);  /* translucent pink — all borders */
-  --glow:     rgba(253,181,206,0.22); /* pink glow — box shadows */
+  --bg:       #FFF7CD;  /* light yellow — main page background */
+  --surface:  #FDC3A1;  /* peach — cards, panels */
+  /*--surface:  rgba(253, 195, 161, 0.85);*/
+  --surface2: #FFF0B0;  /* soft yellow — input backgrounds, card fronts */
+  --accent:   #F57799;  /* pink — primary accent, buttons, active states */
+  --accent2:  #FB9B8F;  /* coral — secondary accent, timer, hints */
+  --accent3:  #FDC3A1;  /* peach — tertiary highlights */
+  --text:     #3d1a1a;  /* dark brown — main text color */
+  --muted:    #b07070;  /* muted rose — secondary text, placeholders */
+  --danger:   #e05555;  /* red — errors and warnings */
+  --border:   rgba(245,119,153,0.3);  /* translucent pink — all borders */
+  --glow:     rgba(245,119,153,0.25); /* pink glow — box shadows */
   --radius:   14px;     /* border radius used on cards and panels */
 }
 
@@ -43,14 +44,18 @@
    The background-image adds the three layered
    radial gradient glows over the navy background.
    ============================================= */
-body {
-  background-color: var(--bg);
+  body {
+  background-image: url('KotoMatch_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--text);
   font-family: 'Jost', sans-serif;
-  min-height: 100vh; /* always at least full screen height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
   /* Three layered glows on top of the navy background:
      1. Pink glow from the top center
