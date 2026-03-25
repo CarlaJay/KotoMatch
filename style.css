@@ -880,7 +880,7 @@
 /* Card back — what you see before flipping
    Shows the ♦ symbol in pink */
 .card-back {
-  background: var(--card-back, var(--surface));
+  background: #f5a57a;
   border: 1.5px solid var(--border);
   color: var(--accent);
   font-size: clamp(1.2rem, 2.5vw, 1.7rem);
@@ -893,26 +893,26 @@
   box-shadow: 0 0 14px var(--glow);
 }
 
-/* English card front — pink tinted */
+/* English card front — solid pink gradient */
 .card-front.eng-card {
   background: linear-gradient(
     145deg,
-    rgba(253,181,206,0.1),
-    var(--surface2)
+    #fdd5e2,
+    #FFF0B0
   );
   border: 1.5px solid var(--accent);
-  transform: rotateY(180deg); /* starts hidden — shown when flipped */
+  transform: rotateY(180deg);
 }
 
-/* Japanese card front — teal tinted */
+/* Japanese card front — solid teal gradient */
 .card-front.jp-card {
   background: linear-gradient(
     145deg,
-    rgba(59,151,151,0.12),
-    var(--surface2)
+    #b2e0e0,
+    #FFF0B0
   );
   border: 1.5px solid var(--accent2);
-  transform: rotateY(180deg); /* starts hidden — shown when flipped */
+  transform: rotateY(180deg);
 }
 
 /* Emoji on card front */
@@ -1072,6 +1072,10 @@
   padding: 5px 4px 8px;
   border-bottom: 1.5px solid var(--border);
   margin-bottom: 4px;
+  color: #1a0a0a;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* Each column header label */
@@ -1088,8 +1092,8 @@
 /* Japanese column header — teal */
 .h-jp { color: var(--accent2); }
 
-/* Pronunciation column header — light teal */
-.h-pr { color: var(--accent3); }
+/* Pronunciation column header - color changed*/
+.h-pr { color: #c9365a; }
 
 /* Each matched word row — same 4-column grid */
 .vocab-row {
@@ -1134,7 +1138,7 @@
 
 /* Romaji pronunciation cell — light teal */
 .vro {
-  color: var(--accent3);
+  color: #c9365a;
   font-size: 0.75rem;
 }
 
