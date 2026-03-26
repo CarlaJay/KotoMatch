@@ -44,7 +44,7 @@
    radial gradient glows over the navy background.
    ============================================= */
   body {
-  background-image: url('KotoMatch_bg.png');
+  background-image: url('KotoMatch_bg1.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -86,8 +86,15 @@
   display: none;           /* hidden by default */
   position: fixed;         /* stays on screen even when scrolling */
   inset: 0;                /* covers the entire screen */
-  background: rgba(8,14,26,0.92); /* dark semi-transparent background */
-  backdrop-filter: blur(12px);    /* blurs what's behind the overlay */
+
+  /* Background — Canva image with peach tint on top
+     so overlay content remains readable */
+  background-color: rgba(255, 220, 190, 0.88); /* warm peach tint */
+  background-image: url('KotoMatch_bg2.png');    /* Canva bg image */
+  background-size: cover;                       /* fills entire screen */
+  background-position: center;                  /* centered */
+
+  backdrop-filter: blur(4px);  /* slight blur — reduced from 12px */
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -878,11 +885,14 @@
 }
 
 /* Card back — what you see before flipping
-   Shows the ♦ symbol in pink */
+   Shows the ♦ symbol in pink - Symbol removed and updated*/
 .card-back {
-  background: #f5a57a;
+  background-image: url('KotoMatch_Card_F.png');
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
   border: 1.5px solid var(--border);
-  color: var(--accent);
+  color: transparent;
   font-size: clamp(1.2rem, 2.5vw, 1.7rem);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -1165,7 +1175,9 @@
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.8rem, 5vw, 3rem);
   font-weight: 900;
-  color: var(--text);
+  background: linear-gradient(135deg, #c9365a, #FB9B8F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   animation: bigPop 0.7s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
@@ -1182,7 +1194,7 @@
 
 /* Sub message below heading */
 .win-sub {
-  color: var(--muted);
+  color: #7a3030;
   font-size: 0.86rem;
   animation: fadeUp 0.4s 0.25s ease both;
 }
@@ -1211,6 +1223,7 @@
 .win-stars {
   font-size: 1.8rem;
   letter-spacing: 4px;
+  filter: brightness(1.2);
   animation: fadeUp 0.4s 0.3s ease both;
 }
 
@@ -1239,7 +1252,7 @@
   font-size: 0.58rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--muted);
+  color: #7a3030;
 }
 
 /* Stat value e.g. "650" */
@@ -1336,7 +1349,7 @@
 /* Mistake count below stars on win screen */
 .win-mistakes {
   font-size: 0.82rem;
-  color: var(--muted);
+  color: #7a3030;
   letter-spacing: 1px;
 }
 
@@ -1406,3 +1419,21 @@
   text-transform: uppercase;
 }
 
+/* =============================================
+   WIN CONTENT PANEL
+   Frosted glass panel behind win screen content.
+   Makes stats stand out against the background.
+   ============================================= */
+.win-content {
+  background: rgba(255, 235, 210, 0.85); /* semi-transparent peach */
+  backdrop-filter: blur(10px);           /* frosted glass effect */
+  border-radius: 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 580px;
+  width: 100%;
+}

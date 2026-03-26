@@ -1402,11 +1402,11 @@ function launchConfetti() {
 
   // Palette colors for the confetti pieces
   const colors = [
-    '#FDB5CE', // pink
-    '#3B9797', // teal
-    '#a8dede', // light teal
-    '#f5eef2', // near white
-    '#16476A', // ocean
+    '#F57799', // pink
+    '#FB9B8F', // coral
+    '#FDC3A1', // peach
+    '#FFF7CD', // soft yellow
+    '#c9365a', // deep pink
   ];
 
   // Create 130 confetti particles with random properties
