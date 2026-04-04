@@ -496,6 +496,7 @@
       Menu
     </button>
   </div>
+   </div><!-- end #win-overlay -->
 
 </div>
 
@@ -504,16 +505,18 @@
      Shows when countdown timer hits zero.
      =============================================== -->
 <div class="overlay" id="gameover-overlay">
-  <div style="font-size: 3rem">💔</div>
-  <h2 class="go-heading">Time's Up!</h2>
-  <p class="win-sub" id="go-msg">Better luck next time!</p>
-  <div class="win-btns">
-    <button class="obtn primary" onclick="restartGame()">
-      Try Again
-    </button>
-    <button class="obtn sec" onclick="goMenu()">
-      Menu
-    </button>
+  <div class="win-content">
+    <div style="font-size: 3rem">💔</div>
+    <h2 class="go-heading">Time's Up!</h2>
+    <p class="win-sub" id="go-msg">Better luck next time!</p>
+    <div class="win-btns">
+      <button class="obtn primary" onclick="restartGame()">
+        Try Again
+      </button>
+      <button class="obtn sec" onclick="goMenu()">
+        Menu
+      </button>
+    </div>
   </div>
 </div>
 

@@ -531,6 +531,7 @@ function shuffle(arr) {
 // a game session. They reset every new game.
 // =============================================
 let flipped      = [];    // cards currently flipped (max 2 at a time)
+let gameOver     = false; // true when game has ended
 let matched      = 0;     // how many pairs have been matched
 let moves        = 0;     // total card flips made
 let locked       = false; // when true, clicks are ignored
@@ -568,6 +569,7 @@ function startGame() {
   score         = 0;
   combo         = 0;
   mistakeCount  = 0;
+  gameOver      = false;  // reset game over state
   currentPlayer = 1;
   p1Score       = 0;
   p2Score       = 0;
@@ -822,8 +824,9 @@ function showPreview() {
 // =============================================
 function onCardClick(card) {
 
-  // Ignore click if board is locked
+  // Ignore click if board is locked or game is over
   if (locked) return;
+  if (gameOver) return;
 
   // Ignore if card is already flipped or matched
   if (card.classList.contains('flipped')) return;
@@ -905,7 +908,7 @@ function checkMatch() {
     updateStats();
 
     // Check if all pairs are matched — trigger win!
-    if (matched === totalPairs) {
+    if (matched === totalPairs && !gameOver) {
       setTimeout(onWin, 400);
     }
 
@@ -1296,7 +1299,11 @@ function onWin() {
 // Shows the game over overlay.
 // =============================================
 function onGameOver() {
+  gameOver = true;  // stop all further card interactions
+  locked   = true;  // lock the board immediately
+  flipped  = [];    // clear any currently flipped cards
   stopTimer();
+  stopConfetti();   // stop confetti — this is a loss not a win!
   playSound('gameover');
   document.getElementById('go-msg').textContent =
     `Better luck next time, ${playerNames[0]}!`;

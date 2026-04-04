@@ -74,6 +74,8 @@
 /* This is the class JavaScript adds to show a screen */
 .screen.active {
   display: flex;
+  position: relative;
+  z-index: 1; /* keeps screen below overlays */
 }
 
 /* =============================================
@@ -90,7 +92,7 @@
   /* Background — Canva image with peach tint on top
      so overlay content remains readable */
   background-color: rgba(255, 220, 190, 0.88); /* warm peach tint */
-  background-image: url('KotoMatch_bg2.png');    /* Canva bg image */
+  background-image: url('KotoMatch_bg1.png');    /* Canva bg image */
   background-size: cover;                       /* fills entire screen */
   background-position: center;                  /* centered */
 
@@ -99,7 +101,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 10px;
-  z-index: 200;            /* sits on top of everything else */
+  z-index: 9998;            /* sits on top of everything else */
   text-align: center;
   padding: 24px;
   animation: fadeIn 0.35s ease; /* fades in when it appears */
@@ -107,7 +109,9 @@
 
 /* JavaScript adds this class to show an overlay */
 .overlay.show {
-  display: flex;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 /* =============================================
@@ -119,9 +123,9 @@
 #confetti-canvas {
   position: fixed;
   inset: 0;
-  pointer-events: none; /* clicks pass through to elements below */
-  z-index: 9999;
-  display: none;        /* hidden until win triggers confetti */
+  pointer-events: none;
+  z-index: 10001;        /* above everything including overlays */
+  display: none;
 }
 
 /* =============================================
