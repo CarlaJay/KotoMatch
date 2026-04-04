@@ -1306,7 +1306,7 @@ function onGameOver() {
   stopConfetti();   // stop confetti — this is a loss not a win!
   playSound('gameover');
   document.getElementById('go-msg').textContent =
-    `Better luck next time, ${playerNames[0]}!`;
+    `Better luck next time!`;
   document.getElementById('gameover-overlay').classList.add('show');
 }
 
