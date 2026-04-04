@@ -13,7 +13,7 @@
    ============================================= */
 :root {
   --bg:       #FFF7CD;  /* light yellow — main page background */
-  --surface:  rgba(253, 195, 161, 0.85);  /* translucent peach — card backs, menu cards, stat boxes */
+  --surface:  rgba(253, 195, 161, 0.95);  /* translucent peach — card backs, menu cards, stat boxes */
   --surface2: #FFF0B0;  /* soft yellow — input backgrounds, card fronts */
   --accent:   #c9365a;  /* pink — primary accent, buttons, active states */
   --accent2:  #c95f3a;  /* coral — secondary accent, timer, hints */
@@ -1440,4 +1440,30 @@
   gap: 10px;
   max-width: 580px;
   width: 100%;
+}
+
+/* =============================================
+   PREVIEW OVERLAY
+   Special override — should NOT cover the cards.
+   Shows as a small floating banner at the top
+   so players can see the cards behind it.
+   ============================================= */
+#preview-overlay {
+  inset: auto;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  animation: none;
+  z-index: 10002;
+}
+
+#preview-overlay .win-content {
+  padding: 8px 28px;
+  text-align: center;
+  width: 600px;
+  max-width: 90vw;
 }
