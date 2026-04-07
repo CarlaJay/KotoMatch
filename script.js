@@ -303,7 +303,7 @@ const VOCAB_BANKS = {
       { emoji:'🌴', en:'Palm Tree',    jp:'ヤシ',       ro:'Yashi'         },
       { emoji:'🦋', en:'Butterfly',    jp:'蝶',         ro:'Chou'          },
       { emoji:'🌝', en:'Full Moon',    jp:'満月',       ro:'Mangetsu'      },
-      { emoji:'🌊', en:'Wave',         jp:'波',         ro:'Nami'          },
+      { emoji:'🏞️', en:'River',        jp:'川',         ro:'Kawa'          }
       { emoji:'🌠', en:'Shooting Star',jp:'流れ星',     ro:'Nagareboshi'   },
       { emoji:'🪸', en:'Coral',        jp:'珊瑚',       ro:'Sango'         },
       { emoji:'🌋', en:'Volcano',      jp:'火山',       ro:'Kazan'         },
@@ -403,7 +403,7 @@ const VOCAB_BANKS = {
 
   // ---- 🏠 DAILY LIFE THEME ----
   daily: {
-    name: 'Daily Life',
+    name: 'Essentials',
     icon: '🏠',
     bank: [
       { emoji:'🏠', en:'House',        jp:'家',         ro:'Ie'            },
@@ -446,7 +446,7 @@ const VOCAB_BANKS = {
 
   // ---- 🤲 BODY & SELF THEME ----
   body: {
-    name: 'Body & Self',
+    name: 'Mind and Body',
     icon: '🤲',
     bank: [
       { emoji:'👁️', en:'Eye',          jp:'目',         ro:'Me'            },
